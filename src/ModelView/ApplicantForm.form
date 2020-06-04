@@ -48,7 +48,7 @@
                           <Component id="genderCBM" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="119" max="32767" attributes="0"/>
+                  <EmptySpace min="119" pref="142" max="32767" attributes="0"/>
               </Group>
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>

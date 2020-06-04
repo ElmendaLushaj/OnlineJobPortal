@@ -15,39 +15,43 @@ import javax.swing.table.AbstractTableModel;
  */
 public class JobTableModel extends AbstractTableModel{
     
-    List <Job> lista;
+    List <Job> listaa;
     String [] kolonat = {"Job ID","Job Title","Job Description","Category Id","Location Id", "Company Id","Job type","Job salary","Posting Date"};
     
-     public JobTableModel(){}
-    public JobTableModel(List<Job>list){
-    this.lista=lista;
+   public JobTableModel(){
     }
-    public void addList(List<Job>list){
-    this.lista=lista;
+    public JobTableModel(List<Job> listaa){
+    this.listaa= listaa;
     }
+    
+    public void addList(List<Job>listaa){
+    this.listaa = listaa;
+    }
+    
     @Override
     public String getColumnName(int col){
     return kolonat[col];
     }
-    
-    @Override
-    public int getRowCount() {
-     return lista.size();    //To change body of generated methods, choose Tools | Templates.
-    }
+   
     public void remove(int row){
-    lista.remove(row);
+        listaa.remove(row);
+        
     }
-    public Job getJob(int index){
-    return lista.get(index);
-    }
-    @Override
-    public int getColumnCount() {
-    return kolonat.length;
-    
-    }
+     @Override
+     public int getRowCount(){
+     return listaa.size();
+     }
+     public Job getJob(int i){
+     return listaa.get(i);
+     }
+     @Override
+     public int getColumnCount(){
+     return kolonat.length;}
+     
+     
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-    Job j=lista.get(rowIndex);
+    Job j=listaa.get(rowIndex);
     switch(columnIndex){
         case 0:
             return j.getJobID();

@@ -118,7 +118,7 @@ public class Location implements Serializable {
 
     @Override
     public String toString() {
-        return "BLL.Location[ locationID=" + locationID + " ]";
+        return  locationID+": "+locationName ;
     }
     
 }

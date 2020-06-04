@@ -160,7 +160,7 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
                     .addGroup(desktopLayout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addComponent(genderCBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(119, 142, Short.MAX_VALUE))
             .addGroup(desktopLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)

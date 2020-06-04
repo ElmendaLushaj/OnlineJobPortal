@@ -140,7 +140,7 @@ public class Company implements Serializable {
 
     @Override
     public String toString() {
-        return "BLL.Company[ companyID=" + companyID + " ]";
+        return companyID + ": "+cName;
     }
     
 }

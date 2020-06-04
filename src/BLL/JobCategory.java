@@ -114,7 +114,7 @@ public class JobCategory implements Serializable {
 
     @Override
     public String toString() {
-        return "BLL.JobCategory[ categoryID=" + categoryID + " ]";
+        return categoryID+(": ")+categoryName;
     }
     
 }

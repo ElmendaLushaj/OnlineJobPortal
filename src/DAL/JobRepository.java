@@ -36,7 +36,13 @@ public class JobRepository  extends EntMngClass implements JobInterface{
 
     @Override
     public void delete(Job j) throws AppFormException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+          try {
+            em.getTransaction().begin();
+            em.remove(j);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            throw new AppFormException("Msg \n" + e.getMessage());
+        } //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
