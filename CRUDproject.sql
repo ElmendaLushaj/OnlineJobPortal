@@ -233,6 +233,32 @@ CREATE TABLE [dbo].[ApplicationDetails](
 ) ON [PRIMARY]
 GO
 
+	USE CRUDproject
+   CREATE TABLE [dbo].[User](
+   [ID][int]	IDENTITY(1,1)NOT NULL,
+   [Username][varchar](50)NULL,
+   [Password][varchar](550)NULL,
+   [RoleID][int]NULL,
+   CONSTRAINT [PK_User]PRIMARY KEY CLUSTERED
+   (
+   [ID]ASC
+   )WITH(PAD_INDEX=OFF,STATISTICS_NORECOMPUTE=OFF,IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ CREATE TABLE [dbo].[Role](
+   [ID][int]	IDENTITY(1,1)NOT NULL,
+   [Name][varchar](50)NULL,
+  
+   CONSTRAINT [PK_Role]PRIMARY KEY CLUSTERED
+   (
+   [ID]ASC
+   )WITH(PAD_INDEX=OFF,STATISTICS_NORECOMPUTE=OFF,IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+   
+
 
 INSERT [dbo].[Employer] ([Employer_ID],[E_Name],[E_Contact],[E_Email]) VALUES (16681381,'Macy Rivera',0135-9100739,'eu.sem.Pellentesque@consequat.edu')
 INSERT[dbo].[Employer] ([Employer_ID],[E_Name],[E_Contact],[E_Email]) VALUES(165456,'Rama Peck',07624-339983,'nisl.Nulla@tempusscelerisquelorem.org');
@@ -273,7 +299,7 @@ INSERT  [dbo].[Location]([Location_ID],[Location_Name],[Employer_ID]) VALUES (11
 INSERT  [dbo].[Location]([Location_ID],[Location_Name],[Employer_ID]) VALUES (116,'Saltillo',165818);
 INSERT  [dbo].[Location]([Location_ID],[Location_Name],[Employer_ID]) VALUES (117,'Kaaskerke',165456);
 INSERT  [dbo].[Location]([Location_ID],[Location_Name],[Employer_ID]) VALUES (118,'Shreveport',16681381);
-SET IDENTITY_INSERT [dbo].[Location] ON
+SET IDENTITY_INSERT [dbo].[Location] OFF
 
 
 INSERT  [dbo].[JobCategory]([Category_ID],[Category_Name],[Employer_ID]) VALUES (2001,'Advertising Sales',1670027);
@@ -364,6 +390,13 @@ INSERT [dbo].[ApplicationDetails]([Application_ID],[Job_ID],[Applicant_ID]) VALU
 INSERT [dbo].[ApplicationDetails]([Application_ID],[Job_ID],[Applicant_ID]) VALUES (1000013,80013,534398);
 INSERT [dbo].[ApplicationDetails]([Application_ID],[Job_ID],[Applicant_ID]) VALUES (1000014,80014,062134);
 SET IDENTITY_INSERT [dbo].[ApplicationDetails] OFF
+	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'lester.branch',N'123456',1)
+	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'joseph.cervantes',N'654321',1)
+	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'claudia.morales',N'987654',2)
+	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'galvin.thomas',N'456789',2)
+
+	INSERT [dbo].[Role]([Name]) VALUES (N'Admin');
+	INSERT [dbo].[Role]([Name]) VALUES (N'User');
 
 USE [master]
 GO
