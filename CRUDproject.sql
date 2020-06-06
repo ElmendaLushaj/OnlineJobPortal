@@ -242,7 +242,7 @@ GO
    CONSTRAINT [PK_User]PRIMARY KEY CLUSTERED
    (
    [ID]ASC
-   )WITH(PAD_INDEX=OFF,STATISTICS_NORECOMPUTE=OFF,IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+   )WITH(PAD_INDEX=OFF,STATISTICS_NORECOMPUTE=OFF,IGNORE_DUP_KEY = OFF, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
 
@@ -253,9 +253,19 @@ GO
    CONSTRAINT [PK_Role]PRIMARY KEY CLUSTERED
    (
    [ID]ASC
-   )WITH(PAD_INDEX=OFF,STATISTICS_NORECOMPUTE=OFF,IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+   )WITH(PAD_INDEX=OFF,STATISTICS_NORECOMPUTE=OFF,IGNORE_DUP_KEY = OFF,  ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+
+
+
+ALTER TABLE [dbo].[User]  WITH CHECK ADD  CONSTRAINT [FK_User_Role] FOREIGN KEY([RoleID])
+REFERENCES [dbo].[Role] ([ID])
+GO
+ALTER TABLE [dbo].[User] CHECK CONSTRAINT [FK_User_Role]
+GO
+
+
 
    
 
@@ -389,14 +399,17 @@ INSERT [dbo].[ApplicationDetails]([Application_ID],[Job_ID],[Applicant_ID]) VALU
 INSERT [dbo].[ApplicationDetails]([Application_ID],[Job_ID],[Applicant_ID]) VALUES (1000012,80012,698740);
 INSERT [dbo].[ApplicationDetails]([Application_ID],[Job_ID],[Applicant_ID]) VALUES (1000013,80013,534398);
 INSERT [dbo].[ApplicationDetails]([Application_ID],[Job_ID],[Applicant_ID]) VALUES (1000014,80014,062134);
-SET IDENTITY_INSERT [dbo].[ApplicationDetails] OFF
+SET IDENTITY_INSERT [dbo].[ApplicationDetails] off
 	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'lester.branch',N'123456',1)
 	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'joseph.cervantes',N'654321',1)
 	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'claudia.morales',N'987654',2)
-	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'galvin.thomas',N'456789',2)
-
+	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'galvin.thomas',N'456789',3)
+	
+	
 	INSERT [dbo].[Role]([Name]) VALUES (N'Admin');
 	INSERT [dbo].[Role]([Name]) VALUES (N'User');
+	INSERT [dbo].[Role]([Name]) VALUES (N'User Employer');
+	
 
 USE [master]
 GO
