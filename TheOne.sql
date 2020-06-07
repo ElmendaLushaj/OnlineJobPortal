@@ -378,37 +378,39 @@ ALTER DATABASE [CRUD13] SET  READ_WRITE
 GO
 
 USE CRUD13
-   CREATE TABLE [dbo].[User](
-   [ID][int]	IDENTITY(1,1)NOT NULL,
-   [Username][varchar](50)NULL,
-   [Password][varchar](550)NULL,
-   [RoleID][int]NULL,
-   CONSTRAINT [PK_User]PRIMARY KEY CLUSTERED
-   (
-   [ID]ASC
-   )WITH(PAD_INDEX=OFF,STATISTICS_NORECOMPUTE=OFF,IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+CREATE TABLE [dbo].[Perdoruesi](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Username] [varchar](50) NULL,
+	[Password] [varchar](550) NULL,
+	[RoliID] [int] NULL,
+ CONSTRAINT [PK_Perdoruesi] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
 
- CREATE TABLE [dbo].[Role](
-   [ID][int]	IDENTITY(1,1)NOT NULL,
-   [Name][varchar](50)NULL,
-
-   CONSTRAINT [PK_Role]PRIMARY KEY CLUSTERED
-   (
-   [ID]ASC
-   )WITH(PAD_INDEX=OFF,STATISTICS_NORECOMPUTE=OFF,IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+CREATE TABLE [dbo].[Roli](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Emertimi] [varchar](50) NULL,
+ CONSTRAINT [PK_Roli] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-  Use CRUD13
 
-	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'lester.branch',N'123456',1)
-	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'joseph.cervantes',N'654321',1)
-	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'claudia.morales',N'987654',2)
-	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'galvin.thomas',N'456789',2)
-	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'melina.lushaku',N'456789',3)
-	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'elmenda.lushaj',N'456789',3)
+INSERT [dbo].[Perdoruesi] ([Username], [Password], [RoliID]) VALUES (N'melina.lushaku', N'123456', 1)
+INSERT [dbo].[Perdoruesi] ([Username], [Password], [RoliID]) VALUES (N'elmenda.lushaj', N'246810', 2)
+INSERT [dbo].[Perdoruesi] ([Username], [Password], [RoliID]) VALUES (N'kujtse.lahi', N'13579', 3)
 
-	INSERT [dbo].[Role]([Name]) VALUES (N'Admin');
-	INSERT [dbo].[Role]([Name]) VALUES (N'User');
-	INSERT [dbo].[Role]([Name]) VALUES (N'User Employer');
+INSERT [dbo].[Roli] ([Emertimi]) VALUES (N'Admin')
+INSERT [dbo].[Roli] ([Emertimi]) VALUES (N'User Applicant')
+INSERT [dbo].[Roli] ([Emertimi]) VALUES (N'User Employer')
+
+
+ALTER TABLE [dbo].[Perdoruesi]  WITH CHECK ADD  CONSTRAINT [FK_Perdoruesi_Roli] FOREIGN KEY([RoliID])
+REFERENCES [dbo].[Roli] ([ID])
+GO
+ALTER TABLE [dbo].[Perdoruesi] CHECK CONSTRAINT [FK_Perdoruesi_Roli]
