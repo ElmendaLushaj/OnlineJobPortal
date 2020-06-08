@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author DELL
  */
-public class EmployerRepository extends EntMngClass implements EmployerInterface{
+public class EmployerRepository extends EntMngClass implements EmployerInterface , Comparable<Employer>{
      @Override
     public void create(Employer e)throws AppFormException{
     try{
@@ -63,5 +63,8 @@ public class EmployerRepository extends EntMngClass implements EmployerInterface
     
     public Employer findByID(Integer ID) throws AppFormException{
     throw new UnsupportedOperationException("Not supported yet.");
+    }
+    public int compareTo(Employer e){
+    
     }
 }

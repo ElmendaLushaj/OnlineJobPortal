@@ -6,6 +6,7 @@
 package ModelView;
 
 import BLL.ApplicationDetails;
+//import BLL.Role;
 
 /**
  *
@@ -18,8 +19,44 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
+        setLocationRelativeTo(null);
     }
-
+     public MainForm(int userRoli) {
+        initComponents();
+        //Nese doni me bo max screen e shkruni kodin me poshte:
+        //setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
+        if(userRoli ==2){
+            employerButton.setVisible(false);
+            jobB.setVisible(false);
+            catogoryMenu.setVisible(false);
+            locationB.setVisible(false);
+        }else if(userRoli ==3){
+            applicantB.setVisible(false);
+            applicationB.setVisible(false);
+            companyB.setVisible(false);
+            catogoryMenu.setVisible(false);
+            
+        }
+    }
+  /*  public MainForm(int userRole){
+    initComponents();
+    setLocationRelativeTo(null);
+    if(userRole == 2){
+        employerButton.setVisible(false);
+        locationB.setVisible(false);
+        companyB.setVisible(false);
+        catogoryMenu.setVisible(false);
+    }else if(userRole == 3){
+        applicantB.setVisible(false);
+        
+        companyB.setVisible(false);
+        applicationB.setVisible(false);
+        
+    }
+    }
+    
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -100,6 +137,11 @@ public class MainForm extends javax.swing.JFrame {
         });
 
         companyB.setText("Company");
+        companyB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                companyBActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout buttonPaneLayout = new javax.swing.GroupLayout(buttonPane);
         buttonPane.setLayout(buttonPaneLayout);
@@ -273,6 +315,10 @@ public class MainForm extends javax.swing.JFrame {
         jf.show();
     }//GEN-LAST:event_jobBActionPerformed
 
+    private void companyBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_companyBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_companyBActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -283,6 +329,25 @@ public class MainForm extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(MainForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+             try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());

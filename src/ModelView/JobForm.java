@@ -384,6 +384,7 @@ public class JobForm extends javax.swing.JInternalFrame {
             j.setCompanyID((Company)ccbm.getSelectedItem());
             j.setLocationID((Location)lcbm.getSelectedItem());
             j.setPostingDate(dateChooser.getDate());
+             j.setJobType(typeField.getText());
             jr.edit(j);
             }
             clear();

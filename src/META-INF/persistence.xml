@@ -9,6 +9,10 @@
     <class>BLL.Location</class>
     <class>BLL.JobCategory</class>
     <class>BLL.Company</class>
+    <class>BLL.User</class>
+    <class>BLL.Role</class>
+    <class>BLL.Perdoruesi</class>
+    <class>BLL.Roli</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localHost:1433;databaseName=CRUD13"/>
       <property name="javax.persistence.jdbc.user" value="Melona"/>
