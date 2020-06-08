@@ -7,6 +7,7 @@ package DAL;
 
 import BLL.Location;
 import java.util.List;
+import javax.persistence.Query;
 
 /**
  *
@@ -60,7 +61,13 @@ public class LocationRepository extends EntMngClass implements LocationInterface
 
     @Override
     public Location findByID(Integer ID) throws AppFormException {
-        throw new UnsupportedOperationException("Not supported yet. Ne javet ne vijim"); //To change body of generated methods, choose Tools | Templates.
+              try {
+            Query query = em.createQuery("SELECT p FROM Location p WHERE p.ID = :abce");
+            query.setParameter("abce", ID);
+            return (Location) query.getSingleResult();
+        } catch (Exception e) {
+            throw new AppFormException("Msg! \n" + e.getMessage());
+        } //To change body of generated methods, choose Tools | Templates.
     }
     
 }

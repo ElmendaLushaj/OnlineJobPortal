@@ -69,6 +69,13 @@ public class MainForm extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
         buttonPane = new javax.swing.JDesktopPane();
         employerButton = new javax.swing.JButton();
         locationB = new javax.swing.JButton();
@@ -89,13 +96,28 @@ public class MainForm extends javax.swing.JFrame {
         jobMenu = new javax.swing.JMenuItem();
         companyMenu = new javax.swing.JMenu();
         locationMenu = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
         applicationMenu = new javax.swing.JMenu();
+        admin = new javax.swing.JMenu();
+        userList = new javax.swing.JMenuItem();
 
         jMenuItem1.setText("jMenuItem1");
 
         jMenuItem2.setText("jMenuItem2");
 
         jMenuItem3.setText("jMenuItem3");
+
+        jMenuItem4.setText("jMenuItem4");
+
+        jMenuItem5.setText("jMenuItem5");
+
+        jMenuItem6.setText("jMenuItem6");
+
+        jMenuItem7.setText("jMenuItem7");
+
+        jMenuItem9.setText("jMenuItem9");
+
+        jMenuItem10.setText("jMenuItem10");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -242,10 +264,26 @@ public class MainForm extends javax.swing.JFrame {
         jMenuBar1.add(companyMenu);
 
         locationMenu.setText("Locations");
+
+        jMenuItem8.setText("jMenuItem8");
+        locationMenu.add(jMenuItem8);
+
         jMenuBar1.add(locationMenu);
 
         applicationMenu.setText("Applications");
         jMenuBar1.add(applicationMenu);
+
+        admin.setText("Admin");
+
+        userList.setText("List of User");
+        userList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userListActionPerformed(evt);
+            }
+        });
+        admin.add(userList);
+
+        jMenuBar1.add(admin);
 
         setJMenuBar(jMenuBar1);
 
@@ -319,6 +357,13 @@ public class MainForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_companyBActionPerformed
 
+    private void userListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userListActionPerformed
+        // TODO add your handling code here:
+        PerdoruesitForm pf = new PerdoruesitForm();
+        desktopPane.add(pf);
+        pf.show();
+    }//GEN-LAST:event_userListActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -374,6 +419,7 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu admin;
     private javax.swing.JButton applicantB;
     private javax.swing.JMenuItem applicantMenu;
     private javax.swing.JButton applicationB;
@@ -390,13 +436,22 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JButton jobB;
     private javax.swing.JMenuItem jobMenu;
     private javax.swing.JButton locationB;
     private javax.swing.JMenu locationMenu;
     private javax.swing.JMenu menuTable;
     private javax.swing.JMenu productMenu;
+    private javax.swing.JMenuItem userList;
     // End of variables declaration//GEN-END:variables
 }

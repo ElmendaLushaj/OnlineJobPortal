@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class PerdoruesitModelTable extends AbstractTableModel{
     List<Perdoruesi> listaa;
-    String [] kolonat = {"Email address:" , "Users Password:" , "Role Id:"};
+    String [] kolonat = {"Role ID:" , "Username:" , "Password:"};
     
     public PerdoruesitModelTable(){
     }

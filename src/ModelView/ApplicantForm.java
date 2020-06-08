@@ -25,6 +25,7 @@ import javax.swing.event.ListSelectionListener;
  * @author DELL
  */
 public class ApplicantForm extends javax.swing.JInternalFrame {
+    private Object sorter;
 
     /**
      * Creates new form ApplicantForm
@@ -63,6 +64,9 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
             Logger.getLogger(ApplicantForm.class.getName()).log(Level.SEVERE,null,ex);
         }
      }
+      
+     
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -72,6 +76,10 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        genderField = new javax.swing.JTextField();
+        jSpinner1 = new javax.swing.JSpinner();
+        filterField = new javax.swing.JTextField();
+        jRadioButton1 = new javax.swing.JRadioButton();
         desktop = new javax.swing.JPanel();
         addB = new javax.swing.JButton();
         cancelB = new javax.swing.JButton();
@@ -91,7 +99,15 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         genderCBM = new javax.swing.JComboBox();
-        genderField = new javax.swing.JTextField();
+
+        filterField.setText("jTextField1");
+
+        jRadioButton1.setText("jRadioButton1");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
 
         addB.setText("Add");
         addB.addActionListener(new java.awt.event.ActionListener() {
@@ -153,21 +169,12 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
         desktopLayout.setHorizontalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(desktopLayout.createSequentialGroup()
-                .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(desktopLayout.createSequentialGroup()
-                        .addGap(108, 108, 108)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(desktopLayout.createSequentialGroup()
-                        .addGap(89, 89, 89)
-                        .addComponent(genderCBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(119, 142, Short.MAX_VALUE))
-            .addGroup(desktopLayout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(deleteB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cancelB, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
                     .addComponent(addB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(138, 138, Short.MAX_VALUE)
                 .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopLayout.createSequentialGroup()
                         .addComponent(jLabel1)
@@ -187,8 +194,8 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(genderField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(100, 100, 100)
+                    .addComponent(genderCBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(76, 76, 76)
                 .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
                     .addComponent(jLabel7))
@@ -196,21 +203,31 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
                 .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(contactField, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(psField, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(143, Short.MAX_VALUE))
+            .addGroup(desktopLayout.createSequentialGroup()
+                .addGap(91, 91, 91)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(desktopLayout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(desktopLayout.createSequentialGroup()
+                        .addComponent(addB, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cancelB, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteB, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(desktopLayout.createSequentialGroup()
                         .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
                             .addComponent(jLabel5)
                             .addComponent(jLabel6)
-                            .addComponent(genderField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(contactField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(contactField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(genderCBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(34, 34, 34)
                         .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -219,19 +236,10 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel7)
-                            .addComponent(psField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(53, 53, 53))
-                    .addGroup(desktopLayout.createSequentialGroup()
-                        .addComponent(addB, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelB, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteB, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)))
+                            .addComponent(psField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(genderCBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -243,7 +251,7 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 32, Short.MAX_VALUE)
+                .addGap(0, 36, Short.MAX_VALUE)
                 .addComponent(desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -278,7 +286,10 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
             if(row == -1){
             Applicant a = new Applicant();
             a.setAName(nameField.getText());
-            a. setGender(genderField.getText());
+            //a. setGender(genderField.getText());
+               String gender = genderCBM.getSelectedItem().toString();
+         
+             a.setGender(gender);
             
             a.setAEmail(emailField.getText());
            
@@ -290,7 +301,9 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
             else{
              Applicant a = atm.getApplicant(row);
             a.setAName(nameField.getText());
-           a. setGender(genderField.getText());
+           String gender = genderCBM.getSelectedItem().toString();
+         
+             a.setGender(gender);
             a.setAEmail(emailField.getText());
             a.setAContact(Integer.parseInt(contactField.getText()));
             a.setProfessionalSummary(psField.getText());
@@ -312,12 +325,21 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_genderCBMActionPerformed
 
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+
+      
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    
+   
+    
 
       public void clear(){
      table.clearSelection();
      idField.setText("");
      nameField.setText("");
-     genderField.setText("");
+     genderCBM.setSelectedIndex(0);
+     //genderField.setText("");
      emailField.setText("");
      contactField.setText("");
       psField.setText("");
@@ -339,8 +361,10 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
                     Applicant a= atm.getApplicant(selectedIndex);
                     idField.setText(a.getApplicantID().toString());
                     nameField.setText(a.getAName());
-                
-                    genderField.setText(a.getGender());
+                     
+                 genderCBM.setSelectedItem(a.getGender());
+                    genderCBM.repaint();
+                  //  genderCBM.setText(a.getGender());
                     contactField.setText(Integer.toString(a.getAContact()));
                     emailField.setText(a.getAEmail());
                     psField.setText(a.getProfessionalSummary());
@@ -348,6 +372,9 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
             }
         });
     }
+      
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addB;
     private javax.swing.JButton cancelB;
@@ -355,6 +382,7 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
     private javax.swing.JButton deleteB;
     private javax.swing.JPanel desktop;
     private javax.swing.JTextField emailField;
+    private javax.swing.JTextField filterField;
     private javax.swing.JComboBox genderCBM;
     private javax.swing.JTextField genderField;
     private javax.swing.JTextField idField;
@@ -365,7 +393,9 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextField nameField;
     private javax.swing.JTextField psField;
     private javax.swing.JTable table;

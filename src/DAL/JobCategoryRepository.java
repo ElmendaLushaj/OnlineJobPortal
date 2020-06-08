@@ -7,6 +7,7 @@ package DAL;
 
 import BLL.JobCategory;
 import java.util.List;
+import javax.persistence.Query;
 
 /**
  *
@@ -24,6 +25,12 @@ public class JobCategoryRepository extends EntMngClass{
     }
     
     public JobCategory findByID(Integer ID) throws AppFormException{
-    throw new UnsupportedOperationException("Not supported yet.");
+         try {
+            Query query = em.createQuery("SELECT p FROM Perdoruesi p WHERE p.ID = :abc");
+            query.setParameter("abc", ID);
+            return (JobCategory) query.getSingleResult();
+        } catch (Exception e) {
+            throw new AppFormException("Msg! \n" + e.getMessage());
+        }
     }
 }

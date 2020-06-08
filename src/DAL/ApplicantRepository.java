@@ -7,6 +7,7 @@ package DAL;
 
 import BLL.Applicant;
 import java.util.List;
+import javax.persistence.Query;
 
 /**
  *
@@ -61,7 +62,13 @@ public class ApplicantRepository extends EntMngClass implements ApplicantInterfa
     }
     
     public Applicant findByID(Integer ID) throws AppFormException{
-    throw new UnsupportedOperationException("Not supported yet.");
+   try {
+            Query query = em.createQuery("SELECT p FROM Applicant p WHERE p.ID = :abc");
+            query.setParameter("abc", ID);
+            return (Applicant) query.getSingleResult();
+        } catch (Exception e) {
+            throw new AppFormException("Msg! \n" + e.getMessage());
+        }
     }
-}
+    }
 

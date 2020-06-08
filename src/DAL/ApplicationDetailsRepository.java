@@ -7,6 +7,7 @@ package DAL;
 
 import BLL.ApplicationDetails;
 import java.util.List;
+import javax.persistence.Query;
 
 /**
  *
@@ -67,7 +68,13 @@ public class ApplicationDetailsRepository extends EntMngClass implements Applica
     }
     
     public ApplicationDetails findByID(Integer ID)throws AppFormException{
-    throw new UnsupportedOperationException("Hala se jena bo");
+          try {
+            Query query = em.createQuery("SELECT p FROM ApplicationDetails p WHERE p.ID = :abc");
+            query.setParameter("abc", ID);
+            return (ApplicationDetails) query.getSingleResult();
+        } catch (Exception e) {
+            throw new AppFormException("Msg! \n" + e.getMessage());
+        }
     }
     
 }

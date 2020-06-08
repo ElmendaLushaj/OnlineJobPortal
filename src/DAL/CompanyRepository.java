@@ -7,6 +7,7 @@ package DAL;
 
 import BLL.Company;
 import java.util.List;
+import javax.persistence.Query;
 
 /**
  *
@@ -24,6 +25,12 @@ public class CompanyRepository  extends EntMngClass{
     }
     
     public Company findByID(Integer ID) throws AppFormException{
-    throw new UnsupportedOperationException("Not supported yet.");
+          try {
+            Query query = em.createQuery("SELECT p FROM Company p WHERE p.ID = :abc");
+            query.setParameter("abc", ID);
+            return (Company) query.getSingleResult();
+        } catch (Exception e) {
+            throw new AppFormException("Msg! \n" + e.getMessage());
+        }
     }
 }

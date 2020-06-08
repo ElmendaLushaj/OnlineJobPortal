@@ -7,6 +7,7 @@ package DAL;
 
 import BLL.Job;
 import java.util.List;
+import javax.persistence.Query;
 
 /**
  *
@@ -57,7 +58,13 @@ public class JobRepository  extends EntMngClass implements JobInterface{
 
     @Override
     public Job findByID(Integer ID) throws AppFormException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+              try {
+            Query query = em.createQuery("SELECT p FROM Job p WHERE p.ID = :abc");
+            query.setParameter("abc", ID);
+            return (Job) query.getSingleResult();
+        } catch (Exception e) {
+            throw new AppFormException("Msg! \n" + e.getMessage());
+        } //To change body of generated methods, choose Tools | Templates.
     }
 
     

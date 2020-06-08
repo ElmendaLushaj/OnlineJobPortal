@@ -7,12 +7,13 @@ package DAL;
 
 import BLL.Employer;
 import java.util.List;
+import javax.persistence.Query;
 
 /**
  *
  * @author DELL
  */
-public class EmployerRepository extends EntMngClass implements EmployerInterface , Comparable<Employer>{
+public class EmployerRepository extends EntMngClass implements EmployerInterface {
      @Override
     public void create(Employer e)throws AppFormException{
     try{
@@ -62,9 +63,15 @@ public class EmployerRepository extends EntMngClass implements EmployerInterface
     }
     
     public Employer findByID(Integer ID) throws AppFormException{
-    throw new UnsupportedOperationException("Not supported yet.");
+        try {
+            Query query = em.createQuery("SELECT p FROM Employer p WHERE p.ID = :abc");
+            query.setParameter("abc", ID);
+            return (Employer) query.getSingleResult();
+        } catch (Exception e) {
+            throw new AppFormException("Msg! \n" + e.getMessage());
+        }
     }
-    public int compareTo(Employer e){
+  /*  public int compareTo(Employer e){
     
-    }
+    }*/
 }
