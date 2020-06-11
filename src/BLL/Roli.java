@@ -94,7 +94,7 @@ public class Roli implements Serializable {
 
     @Override
     public String toString() {
-        return "BLL.Roli[ id=" + id + " ]";
+        return  id +": "+getEmertimi();
     }
     
 }

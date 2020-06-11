@@ -5,7 +5,7 @@
  */
 package ModelGiu;
 
-import BLL.Perdoruesi;
+import BLL.Roli;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -13,17 +13,17 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author DELL
  */
-public class PerdoruesitModelTable extends AbstractTableModel{
-    List<Perdoruesi> listaa;
-    String [] kolonat = {"ID:" , "Username:" , "Password:", "Rol ID:"};
+public class RoliTableModel extends  AbstractTableModel {
+     List<Roli> listaa;
+    String [] kolonat = {"ID:" , "Emertimi:" };
     
-    public PerdoruesitModelTable(){
+    public RoliTableModel(){
     }
-    public PerdoruesitModelTable(List<Perdoruesi> listaa){
+    public RoliTableModel(List<Roli> listaa){
     this.listaa= listaa;
     }
     
-    public void addList(List<Perdoruesi>listaa){
+    public void addList(List<Roli>listaa){
     this.listaa = listaa;
     }
     
@@ -40,7 +40,7 @@ public class PerdoruesitModelTable extends AbstractTableModel{
      public int getRowCount(){
      return listaa.size();
      }
-     public Perdoruesi getPerdoruesi(int i){
+     public Roli getRoli(int i){
      return listaa.get(i);
      }
      @Override
@@ -48,19 +48,15 @@ public class PerdoruesitModelTable extends AbstractTableModel{
      return kolonat.length;}
      @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Perdoruesi p = listaa.get(rowIndex);
+        Roli p = listaa.get(rowIndex);
         switch(columnIndex){
             case 0:
                 return p.getId();
             case 1:
-                return p.getUsername();
-            case 2:
-                return p.getPassword();
-            case 3:
-                return p.getRoliID();
+                return p.getEmertimi();
+            
             default:
                 return null;
         }
     }
-    
 }

@@ -31,11 +31,13 @@ public class MainForm extends javax.swing.JFrame {
             jobB.setVisible(false);
             catogoryMenu.setVisible(false);
             locationB.setVisible(false);
+            admin.setVisible(false);
         }else if(userRoli ==3){
             applicantB.setVisible(false);
             applicationB.setVisible(false);
             companyB.setVisible(false);
             catogoryMenu.setVisible(false);
+            admin.setVisible(false);
             
         }
     }

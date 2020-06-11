@@ -166,6 +166,11 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
         });
 
         jobCBM.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jobCBM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jobCBMActionPerformed(evt);
+            }
+        });
 
         applicantCBM.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -306,6 +311,10 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
     private void idFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_idFieldActionPerformed
+
+    private void jobCBMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jobCBMActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jobCBMActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
