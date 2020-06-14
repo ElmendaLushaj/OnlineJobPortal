@@ -5,14 +5,20 @@
  */
 package ModelView;
 
+import BLL.Applicant;
+import BLL.Employer;
 import BLL.Perdoruesi;
 import BLL.Roli;
 import DAL.AppFormException;
+import DAL.ApplicantRepository;
+import DAL.EmployerRepository;
 import DAL.PerdoruesiRepository;
 import DAL.RoliRepository;
 import ModelGiu.RoliComboBoxModel;
 import java.util.List;
-import javax.persistence.Table;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -75,6 +81,13 @@ public class SignUpForm extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        genderCBM = new javax.swing.JComboBox();
+        jLabel8 = new javax.swing.JLabel();
+        contactField = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        psField = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        mistake = new javax.swing.JLabel();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -85,6 +98,18 @@ public class SignUpForm extends javax.swing.JFrame {
         idField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idField1ActionPerformed(evt);
+            }
+        });
+
+        usernameField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                usernameFieldKeyReleased(evt);
+            }
+        });
+
+        emailField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                emailFieldKeyReleased(evt);
             }
         });
 
@@ -102,10 +127,20 @@ public class SignUpForm extends javax.swing.JFrame {
                 passwordfieldActionPerformed(evt);
             }
         });
+        passwordfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                passwordfieldKeyReleased(evt);
+            }
+        });
 
         Confirmpasswordfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ConfirmpasswordfieldActionPerformed(evt);
+            }
+        });
+        Confirmpasswordfield.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                ConfirmpasswordfieldKeyReleased(evt);
             }
         });
 
@@ -129,34 +164,80 @@ public class SignUpForm extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setText("Sign Up");
 
+        genderCBM.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Choose your gender", "Female", "Male", "Other" }));
+        genderCBM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                genderCBMActionPerformed(evt);
+            }
+        });
+        genderCBM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                genderCBMKeyReleased(evt);
+            }
+        });
+
+        jLabel8.setText("Gender:");
+
+        contactField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                contactFieldKeyReleased(evt);
+            }
+        });
+
+        jLabel9.setText("Contact:");
+
+        psField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                psFieldKeyReleased(evt);
+            }
+        });
+
+        jLabel10.setText("jLabel10");
+
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
-                .addGap(102, 102, 102)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelLayout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(jButton2))
-                    .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(102, 102, 102)
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel1)
+                        .addGap(4, 4, 4)))
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(idField1, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                            .addComponent(usernameField)
-                            .addComponent(emailField)
-                            .addComponent(passwordfield)
-                            .addComponent(Confirmpasswordfield))))
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(idField1, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                                .addComponent(usernameField)
+                                .addComponent(emailField)
+                                .addComponent(passwordfield)
+                                .addComponent(Confirmpasswordfield))
+                            .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(psField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(contactField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(genderCBM, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2)))
                 .addContainerGap(179, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                .addGap(0, 39, Short.MAX_VALUE)
+                .addComponent(mistake, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,20 +263,37 @@ public class SignUpForm extends javax.swing.JFrame {
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Confirmpasswordfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
+                    .addComponent(genderCBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(contactField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(psField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addGap(18, 18, 18)
+                .addComponent(mistake, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addGap(60, 60, 60))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,13 +313,37 @@ public class SignUpForm extends javax.swing.JFrame {
      
     PerdoruesiRepository pr = new PerdoruesiRepository();
      PerdoruesitForm pff = new PerdoruesitForm();
+    ApplicantForm aff = new ApplicantForm();
+    ApplicantRepository ar = new ApplicantRepository();
+    EmployerRepository er = new EmployerRepository();
+    EmployerForm eff = new EmployerForm();
+    
+    
     private void idField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_idField1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+       
          try{
+           String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+           Pattern patern = Pattern.compile(regex);
+           String email = emailField.getText();
+           Matcher matcher = patern.matcher(email);
+           
+        
+        if(usernameField.getText().trim().isEmpty() || passwordfield.getText().trim().isEmpty() || Confirmpasswordfield.getText().trim().isEmpty()
+                || emailField.getText().trim().isEmpty() || contactField.getText().trim().isEmpty()
+                || genderCBM.getSelectedIndex() == 0 || psField.getText().trim().isEmpty()) {
+            mistake.setText("All of the fields shoul be filled");
+        }
+        else if (!passwordfield.getText().equals(Confirmpasswordfield.getText())){
+            mistake.setText("Password Field and ConfirmPassword Field are not matching");
+        }else if (!matcher.matches()){
+          mistake.setText("email shoul be like : xxxx@xxx.xxx");
+        
+        }else{
             
             Perdoruesi  p = new Perdoruesi();
             p.setUsername(usernameField.getText());
@@ -231,7 +353,7 @@ public class SignUpForm extends javax.swing.JFrame {
             p.setRoliID((Roli)rcbm.getSelectedItem());
             pr.create(p);
             pff.loadTable();
-            JOptionPane.showMessageDialog(this,"Welcome to Online Job Portal");
+          
             if (p != null) {
                     //if(p.getRoliID().getId() == 1){
                     //    new AdminMainForm
@@ -240,17 +362,81 @@ public class SignUpForm extends javax.swing.JFrame {
                     //}
                     new MainForm(p.getRoliID().getId()).setVisible(true);
                 this.setVisible(false);
+                JOptionPane.showMessageDialog(this,"Welcome to Online Job Portal");
             }
+           
+            
+            if(p.getRoliID().getId() == 2){
+                Applicant a = new Applicant();
+                  a.setAName(usernameField.getText());
+            //a. setGender(genderField.getText());
+               String gender = genderCBM.getSelectedItem().toString();
+         
+             a.setGender(gender);
+            
+            a.setAEmail(emailField.getText());
+           
+            a.setAContact(Integer.parseInt(contactField.getText()));
+             a.setProfessionalSummary(psField.getText());
+            
+            ar.create(a);
+            aff.loadTable();
+                
+            }else if (p.getRoliID().getId() == 3){
+             Employer em = new Employer();
+            em.setEName(usernameField.getText());
+            em.setEEmail(emailField.getText());
+            em.setEContact(Integer.parseInt(contactField.getText()));
+            er.create(em);
+            eff.loadTable();
+         }
+         }
             
          }catch(Exception e){
              
-         JOptionPane.showMessageDialog(this , "This User Exists");
+         JOptionPane.showMessageDialog(this , "You didnt give the right info");
+         
                  }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void comboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxActionPerformed
+
+    private void genderCBMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genderCBMActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_genderCBMActionPerformed
+
+    private void usernameFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameFieldKeyReleased
+        // TODO add your handling code here:
+        mistake.setText("");
+    }//GEN-LAST:event_usernameFieldKeyReleased
+
+    private void emailFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailFieldKeyReleased
+ mistake.setText("");        // TODO add your handling code here:
+    }//GEN-LAST:event_emailFieldKeyReleased
+
+    private void passwordfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordfieldKeyReleased
+ mistake.setText("");        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordfieldKeyReleased
+
+    private void ConfirmpasswordfieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ConfirmpasswordfieldKeyReleased
+        // TODO add your handling code here:
+        mistake.setText("");
+    }//GEN-LAST:event_ConfirmpasswordfieldKeyReleased
+
+    private void genderCBMKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_genderCBMKeyReleased
+        // TODO add your handling code here:
+         mistake.setText("");
+    }//GEN-LAST:event_genderCBMKeyReleased
+
+    private void contactFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contactFieldKeyReleased
+ mistake.setText("");        // TODO add your handling code here:
+    }//GEN-LAST:event_contactFieldKeyReleased
+
+    private void psFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_psFieldKeyReleased
+ mistake.setText("");        // TODO add your handling code here:
+    }//GEN-LAST:event_psFieldKeyReleased
     
      RoliRepository rp = new RoliRepository();
     RoliComboBoxModel rcbm = new RoliComboBoxModel();
@@ -307,19 +493,26 @@ public class SignUpForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField Confirmpasswordfield;
     private javax.swing.JComboBox comboBox;
+    private javax.swing.JTextField contactField;
     private javax.swing.JTextField emailField;
+    private javax.swing.JComboBox genderCBM;
     private javax.swing.JTextField idField1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel mistake;
     private javax.swing.JPanel panel;
     private javax.swing.JPasswordField passwordfield;
+    private javax.swing.JTextField psField;
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,13 +9,20 @@ import BLL.Employer;
 import DAL.AppFormException;
 import DAL.EmployerRepository;
 import ModelGiu.EmployerTableModel;
+
+
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+
+
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
 
 /**
  *
@@ -30,6 +37,7 @@ public class EmployerForm extends javax.swing.JInternalFrame {
         initComponents();
         loadTable();
         tabelaSelectedIndexChange();
+        
     }
     EmployerRepository er = new EmployerRepository();
     EmployerTableModel etm = new EmployerTableModel();
@@ -79,6 +87,8 @@ public class EmployerForm extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList();
         functionPanel = new javax.swing.JPanel();
         addB = new javax.swing.JButton();
         cancelB = new javax.swing.JButton();
@@ -93,7 +103,15 @@ public class EmployerForm extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        sort = new javax.swing.JRadioButton();
         tablePanel = new javax.swing.JPanel();
+
+        jList1.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList1);
 
         addB.setText("ADD");
         addB.addActionListener(new java.awt.event.ActionListener() {
@@ -151,6 +169,13 @@ public class EmployerForm extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Employer Email:");
 
+        sort.setText("jRadioButton1");
+        sort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sortActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout functionPanelLayout = new javax.swing.GroupLayout(functionPanel);
         functionPanel.setLayout(functionPanelLayout);
         functionPanelLayout.setHorizontalGroup(
@@ -186,9 +211,13 @@ public class EmployerForm extends javax.swing.JInternalFrame {
                                 .addGap(8, 8, 8)
                                 .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(functionPanelLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
+                        .addGap(45, 45, 45)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(132, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, functionPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(sort)
+                .addGap(259, 259, 259))
         );
         functionPanelLayout.setVerticalGroup(
             functionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,9 +243,11 @@ public class EmployerForm extends javax.swing.JInternalFrame {
                         .addComponent(cancelB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(3, 3, 3)
                 .addComponent(deleteB, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(sort)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout tablePanelLayout = new javax.swing.GroupLayout(tablePanel);
@@ -227,7 +258,7 @@ public class EmployerForm extends javax.swing.JInternalFrame {
         );
         tablePanelLayout.setVerticalGroup(
             tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 4, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -312,6 +343,11 @@ public class EmployerForm extends javax.swing.JInternalFrame {
     private void contactFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_contactFieldActionPerformed
+
+    private void sortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sortActionPerformed
+        // TODO add your handling code here:
+ 
+    }//GEN-LAST:event_sortActionPerformed
    
     public void clear(){
      table.clearSelection();
@@ -321,7 +357,9 @@ public class EmployerForm extends javax.swing.JInternalFrame {
      contactField.setText("");
     
     }
+    
 
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addB;
     private javax.swing.JButton cancelB;
@@ -334,8 +372,11 @@ public class EmployerForm extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nameField;
+    private javax.swing.JRadioButton sort;
     private javax.swing.JTable table;
     private javax.swing.JPanel tablePanel;
     // End of variables declaration//GEN-END:variables

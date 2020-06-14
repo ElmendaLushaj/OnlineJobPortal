@@ -65,7 +65,7 @@
             <Property name="text" type="java.lang.String" value="Edit"/>
           </Properties>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="menuTable">
+        <Menu class="javax.swing.JMenu" name="userMenu">
           <Properties>
             <Property name="text" type="java.lang.String" value="Users"/>
           </Properties>

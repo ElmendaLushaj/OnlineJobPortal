@@ -46,6 +46,8 @@ public class LocationTableModel extends AbstractTableModel{
      @Override
      public int getColumnCount(){
      return kolonat.length;}
+     
+   
      @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Location l = listaa.get(rowIndex);

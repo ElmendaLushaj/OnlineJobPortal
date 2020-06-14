@@ -69,5 +69,6 @@ public class LocationRepository extends EntMngClass implements LocationInterface
             throw new AppFormException("Msg! \n" + e.getMessage());
         } //To change body of generated methods, choose Tools | Templates.
     }
-    
+ 
+      
 }

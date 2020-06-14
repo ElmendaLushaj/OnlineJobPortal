@@ -32,13 +32,16 @@ public class MainForm extends javax.swing.JFrame {
             catogoryMenu.setVisible(false);
             locationB.setVisible(false);
             admin.setVisible(false);
+            applicantB.setVisible(false);
+            userMenu.setVisible(false);
         }else if(userRoli ==3){
             applicantB.setVisible(false);
             applicationB.setVisible(false);
             companyB.setVisible(false);
             catogoryMenu.setVisible(false);
             admin.setVisible(false);
-            
+            employerButton.setVisible(false);
+            userMenu.setVisible(false);
         }
     }
   /*  public MainForm(int userRole){
@@ -90,7 +93,7 @@ public class MainForm extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        menuTable = new javax.swing.JMenu();
+        userMenu = new javax.swing.JMenu();
         employerMenu = new javax.swing.JMenuItem();
         applicantMenu = new javax.swing.JMenuItem();
         productMenu = new javax.swing.JMenu();
@@ -231,7 +234,7 @@ public class MainForm extends javax.swing.JFrame {
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
 
-        menuTable.setText("Users");
+        userMenu.setText("Users");
 
         employerMenu.setText("Employer's");
         employerMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -239,7 +242,7 @@ public class MainForm extends javax.swing.JFrame {
                 employerMenuActionPerformed(evt);
             }
         });
-        menuTable.add(employerMenu);
+        userMenu.add(employerMenu);
 
         applicantMenu.setText("Applicants");
         applicantMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -247,9 +250,9 @@ public class MainForm extends javax.swing.JFrame {
                 applicantMenuActionPerformed(evt);
             }
         });
-        menuTable.add(applicantMenu);
+        userMenu.add(applicantMenu);
 
-        jMenuBar1.add(menuTable);
+        jMenuBar1.add(userMenu);
 
         productMenu.setText("Product");
 
@@ -452,8 +455,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuItem jobMenu;
     private javax.swing.JButton locationB;
     private javax.swing.JMenu locationMenu;
-    private javax.swing.JMenu menuTable;
     private javax.swing.JMenu productMenu;
     private javax.swing.JMenuItem userList;
+    private javax.swing.JMenu userMenu;
     // End of variables declaration//GEN-END:variables
 }

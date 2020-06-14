@@ -15,6 +15,7 @@ import ModelGiu.LocationTableModel;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -34,6 +35,7 @@ public class LocationForm extends javax.swing.JInternalFrame {
     LocationRepository lr = new LocationRepository();
     LocationTableModel ltm = new LocationTableModel();
     EmployerComboBoxModel ecbm = new EmployerComboBoxModel();
+    private Object em;
    
     
     public LocationForm() {
@@ -45,6 +47,7 @@ public class LocationForm extends javax.swing.JInternalFrame {
     
     public void loadTable(){
         try{
+            
             List<Location> lista = lr.findAll();
             ltm.addList(lista);
             locationTable.setModel(ltm);
@@ -86,7 +89,19 @@ public class LocationForm extends javax.swing.JInternalFrame {
             }
         });
     }
+     private void Update_table(){
+      try{
 
+      
+  
+      
+      
+      
+      }catch(Exception e){
+      JOptionPane.showMessageDialog(null ,3);
+      }
+      
+      }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

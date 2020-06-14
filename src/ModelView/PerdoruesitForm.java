@@ -41,11 +41,11 @@ public class PerdoruesitForm extends javax.swing.JInternalFrame {
     }
     PerdoruesiRepository pr = new PerdoruesiRepository();
     PerdoruesitModelTable ptm = new PerdoruesitModelTable();
-    public PerdoruesitForm(Perdoruesi p) throws AppFormException{
-      pr.create(p);
-      loadTable();
+  //  public PerdoruesitForm(Perdoruesi p) throws AppFormException{
+    //  pr.create(p);
+    //  loadTable();
       
-    }
+    //}
     
     
     
