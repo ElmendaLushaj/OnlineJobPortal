@@ -13,7 +13,7 @@ import javax.persistence.Query;
  *
  * @author DELL
  */
-public class PerdoruesiRepository extends EntMngClass implements PerdoruesiInteerface{
+public class PerdoruesiRepository extends EntMngClass implements PerdoruesiInteerface {
       @Override
     public void create(Perdoruesi p) throws AppFormException {
         try {

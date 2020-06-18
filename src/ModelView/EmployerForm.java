@@ -14,14 +14,18 @@ import ModelGiu.EmployerTableModel;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 
 
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableRowSorter;
 
 
 /**
@@ -37,6 +41,7 @@ public class EmployerForm extends javax.swing.JInternalFrame {
         initComponents();
         loadTable();
         tabelaSelectedIndexChange();
+        sort();
         
     }
     EmployerRepository er = new EmployerRepository();
@@ -45,6 +50,7 @@ public class EmployerForm extends javax.swing.JInternalFrame {
     public void loadTable(){
         try{
             List<Employer> lista = er.findAll();
+            etm.setPageSize(5);
             etm.addList(lista);
             table.setModel(etm);
             etm.fireTableDataChanged();
@@ -89,6 +95,7 @@ public class EmployerForm extends javax.swing.JInternalFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList();
+        sort = new javax.swing.JRadioButton();
         functionPanel = new javax.swing.JPanel();
         addB = new javax.swing.JButton();
         cancelB = new javax.swing.JButton();
@@ -103,7 +110,11 @@ public class EmployerForm extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        sort = new javax.swing.JRadioButton();
+        mistake = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        filterF = new javax.swing.JTextField();
+        upB = new javax.swing.JButton();
+        downB = new javax.swing.JButton();
         tablePanel = new javax.swing.JPanel();
 
         jList1.setModel(new javax.swing.AbstractListModel() {
@@ -112,6 +123,13 @@ public class EmployerForm extends javax.swing.JInternalFrame {
             public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane2.setViewportView(jList1);
+
+        sort.setText("jRadioButton1");
+        sort.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sortActionPerformed(evt);
+            }
+        });
 
         addB.setText("ADD");
         addB.addActionListener(new java.awt.event.ActionListener() {
@@ -155,9 +173,26 @@ public class EmployerForm extends javax.swing.JInternalFrame {
             }
         });
 
+        nameField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nameFieldKeyReleased(evt);
+            }
+        });
+
         contactField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 contactFieldActionPerformed(evt);
+            }
+        });
+        contactField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                contactFieldKeyReleased(evt);
+            }
+        });
+
+        emailField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                emailFieldKeyReleased(evt);
             }
         });
 
@@ -169,10 +204,25 @@ public class EmployerForm extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Employer Email:");
 
-        sort.setText("jRadioButton1");
-        sort.addActionListener(new java.awt.event.ActionListener() {
+        jLabel5.setText("Filter with Text:");
+
+        filterF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                filterFKeyReleased(evt);
+            }
+        });
+
+        upB.setText("previous");
+        upB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sortActionPerformed(evt);
+                upBActionPerformed(evt);
+            }
+        });
+
+        downB.setText("Next");
+        downB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                downBActionPerformed(evt);
             }
         });
 
@@ -190,34 +240,44 @@ public class EmployerForm extends javax.swing.JInternalFrame {
                             .addComponent(addB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(functionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(functionPanelLayout.createSequentialGroup()
-                                .addGap(86, 86, 86)
-                                .addComponent(jLabel1))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, functionPanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(functionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(167, 167, 167)
-                        .addGroup(functionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4))
-                        .addGroup(functionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(functionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(functionPanelLayout.createSequentialGroup()
+                                        .addGap(86, 86, 86)
+                                        .addComponent(jLabel1))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, functionPanelLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel2)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(functionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(167, 167, 167)
+                                .addGroup(functionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4))
+                                .addGroup(functionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(functionPanelLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(contactField, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(functionPanelLayout.createSequentialGroup()
+                                        .addGap(8, 8, 8)
+                                        .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(functionPanelLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(contactField, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(functionPanelLayout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(165, 165, 165)
+                                .addComponent(mistake, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(functionPanelLayout.createSequentialGroup()
-                        .addGap(45, 45, 45)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(131, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, functionPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(sort)
-                .addGap(259, 259, 259))
+                        .addGap(46, 46, 46)
+                        .addGroup(functionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(functionPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(filterF, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(132, 132, 132)
+                                .addComponent(upB)
+                                .addGap(18, 18, 18)
+                                .addComponent(downB))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
         functionPanelLayout.setVerticalGroup(
             functionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,13 +301,22 @@ public class EmployerForm extends javax.swing.JInternalFrame {
                     .addGroup(functionPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(3, 3, 3)
-                .addComponent(deleteB, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(sort)
-                .addGap(18, 18, 18)
+                .addGroup(functionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(functionPanelLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(deleteB, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(functionPanelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(mistake, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(functionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(filterF, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(upB)
+                    .addComponent(downB))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout tablePanelLayout = new javax.swing.GroupLayout(tablePanel);
@@ -258,7 +327,7 @@ public class EmployerForm extends javax.swing.JInternalFrame {
         );
         tablePanelLayout.setVerticalGroup(
             tablePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 4, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -286,6 +355,18 @@ public class EmployerForm extends javax.swing.JInternalFrame {
     private void addBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBActionPerformed
         // TODO add your handling code here:
         try{
+             String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+           Pattern patern = Pattern.compile(regex);
+           String email = emailField.getText();
+           Matcher matcher = patern.matcher(email);
+            
+             if(nameField.getText().trim().isEmpty()   || emailField.getText().trim().isEmpty() || 
+                contactField.getText().trim().isEmpty()) {
+            mistake.setText("All of the fields shoul be filled");
+             }else if(!matcher.matches()){
+          mistake.setText("email shoul be like : xxxx@xxx.xxx");
+        
+        }else {
             int row = table.getSelectedRow();
             if(row == -1){
             Employer em = new Employer();
@@ -303,11 +384,21 @@ public class EmployerForm extends javax.swing.JInternalFrame {
             }
             clear();
             loadTable();
+             }
         }catch(AppFormException af){
             JOptionPane.showMessageDialog(this , "This data Exists");
         }
     }//GEN-LAST:event_addBActionPerformed
 
+    private void filter(String query){
+       //DefaultTableModel dtm = (DefaultTableModel)table.getModel();
+        TableRowSorter<EmployerTableModel> tr;
+        tr = new  TableRowSorter<EmployerTableModel>((EmployerTableModel) table.getModel());
+        table.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(query));
+        
+        
+    }
     private void cancelBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBActionPerformed
         // TODO add your handling code here:
         clear();
@@ -348,6 +439,53 @@ public class EmployerForm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
  
     }//GEN-LAST:event_sortActionPerformed
+
+    private void nameFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameFieldKeyReleased
+mistake.setText(" ");        // TODO add your handling code here:
+    }//GEN-LAST:event_nameFieldKeyReleased
+
+    private void contactFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contactFieldKeyReleased
+mistake.setText(" ");            // TODO add your handling code here:
+    }//GEN-LAST:event_contactFieldKeyReleased
+
+    private void emailFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailFieldKeyReleased
+mistake.setText(" ");            // TODO add your handling code here:
+    }//GEN-LAST:event_emailFieldKeyReleased
+ private void sort(){
+     TableRowSorter<EmployerTableModel> tr;
+        tr = new  TableRowSorter<EmployerTableModel>((EmployerTableModel) table.getModel());
+        table.setRowSorter(tr);
+     
+     
+     }
+    private void filterFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_filterFKeyReleased
+        // TODO add your handling code here:
+        String query =filterF.getText();
+        filter(query);
+    }//GEN-LAST:event_filterFKeyReleased
+
+    private void upBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upBActionPerformed
+        // TODO add your handling code here:
+         EmployerTableModel model = (EmployerTableModel) table.getModel();
+        model.pageUp();
+         if (model.getPageOffset() == 0) {
+          upB.setEnabled(false);
+        }else{
+        downB.setEnabled(true);
+      }
+    }//GEN-LAST:event_upBActionPerformed
+
+    private void downBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downBActionPerformed
+        // TODO add your handling code here
+             EmployerTableModel model = (EmployerTableModel) table.getModel();
+        model.pageDown();
+           // If we hit the bottom of the data, disable the down button.
+        if (model.getPageOffset() == (model.getPageCount() - 1)) {
+          downB.setEnabled(false);
+        }else{
+        upB.setEnabled(true);
+      }
+    }//GEN-LAST:event_downBActionPerformed
    
     public void clear(){
      table.clearSelection();
@@ -365,19 +503,24 @@ public class EmployerForm extends javax.swing.JInternalFrame {
     private javax.swing.JButton cancelB;
     private javax.swing.JTextField contactField;
     private javax.swing.JButton deleteB;
+    private javax.swing.JButton downB;
     private javax.swing.JTextField emailField;
+    private javax.swing.JTextField filterF;
     private javax.swing.JPanel functionPanel;
     private javax.swing.JTextField idField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JList jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel mistake;
     private javax.swing.JTextField nameField;
     private javax.swing.JRadioButton sort;
     private javax.swing.JTable table;
     private javax.swing.JPanel tablePanel;
+    private javax.swing.JButton upB;
     // End of variables declaration//GEN-END:variables
 }

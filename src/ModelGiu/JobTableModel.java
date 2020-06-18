@@ -17,16 +17,50 @@ public class JobTableModel extends AbstractTableModel{
     
     List <Job> listaa;
     String [] kolonat = {"Job ID","Job Title","Job Description","Category Id","Location Id", "Company Id","Job type","Job salary","Posting Date"};
-    
+      protected int pageSize;
+
+  protected int pageOffset;
    public JobTableModel(){
     }
-    public JobTableModel(List<Job> listaa){
-    this.listaa= listaa;
+    public int getPageOffset() {
+    return pageOffset;
+  }
+      public int getPageCount() {
+    return (int) Math.ceil((double) listaa.size() / pageSize);
+  }
+   public void setPageSize(int s) {
+    if (s == pageSize) {
+      return;
     }
-    
-    public void addList(List<Job>listaa){
+    int oldPageSize = pageSize;
+    pageSize = s;
+    pageOffset = (oldPageSize * pageOffset) / pageSize;
+    fireTableDataChanged();
+    /*
+     * if (pageSize < oldPageSize) { fireTableRowsDeleted(pageSize,
+     * oldPageSize - 1); } else { fireTableRowsInserted(oldPageSize,
+     * pageSize - 1); }
+     */
+  }
+  public void pageDown() {
+    if (pageOffset < getPageCount() - 1) {
+      pageOffset++;
+      fireTableDataChanged();
+    }
+  }
+
+  // Update the page offset and fire a data changed (all rows).
+  public void pageUp() {
+    if (pageOffset > 0) {
+      pageOffset--;
+      fireTableDataChanged();
+    }
+  }  
+
+   public void addList(List<Job>listaa){
     this.listaa = listaa;
     }
+    
     
     @Override
     public String getColumnName(int col){
@@ -39,7 +73,7 @@ public class JobTableModel extends AbstractTableModel{
     }
      @Override
      public int getRowCount(){
-     return listaa.size();
+     return Math.min(pageSize, listaa.size());
      }
      public Job getJob(int i){
      return listaa.get(i);
@@ -51,7 +85,8 @@ public class JobTableModel extends AbstractTableModel{
      
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-    Job j=listaa.get(rowIndex);
+        int realRow = rowIndex + (pageOffset * pageSize);
+    Job j=listaa.get(realRow);
     switch(columnIndex){
         case 0:
             return j.getJobID();

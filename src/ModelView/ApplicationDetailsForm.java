@@ -20,8 +20,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -37,6 +39,7 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
         loadTable();
         loadComboBox();
         tabelaSelectedIndexChange();
+        sort();
     }
     ApplicantRepository ar = new ApplicantRepository();
     ApplicantComboBoxModel acbm = new ApplicantComboBoxModel();
@@ -46,7 +49,7 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
     JobComboBoxModel jcbm = new JobComboBoxModel();
     
     private void tabelaSelectedIndexChange(){
-        final ListSelectionModel rowSM = table.getSelectionModel();
+        final ListSelectionModel rowSM = table3.getSelectionModel();
         rowSM.addListSelectionListener(new ListSelectionListener(){
 
             @Override
@@ -74,8 +77,10 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
     
      try{
             List<ApplicationDetails> lista = adr.findAll();
+            adtm.setPageSize(5);
             adtm.addList(lista);
-            table.setModel(adtm);
+            
+            table3.setModel(adtm);
             adtm.fireTableDataChanged();
         }catch(AppFormException ex){
             Logger.getLogger(EmployerForm.class.getName()).log(Level.SEVERE,null,ex);
@@ -129,7 +134,12 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
         jobCBM = new javax.swing.JComboBox();
         applicantCBM = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
-        table = new javax.swing.JTable();
+        table3 = new javax.swing.JTable();
+        mistake = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        filterF = new javax.swing.JTextField();
+        upB = new javax.swing.JButton();
+        downB = new javax.swing.JButton();
 
         saveB.setText("ADD");
         saveB.addActionListener(new java.awt.event.ActionListener() {
@@ -171,10 +181,20 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
                 jobCBMActionPerformed(evt);
             }
         });
+        jobCBM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jobCBMKeyReleased(evt);
+            }
+        });
 
         applicantCBM.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        applicantCBM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                applicantCBMKeyReleased(evt);
+            }
+        });
 
-        table.setModel(new javax.swing.table.DefaultTableModel(
+        table3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -185,23 +205,52 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(table);
+        jScrollPane1.setViewportView(table3);
+
+        mistake.setText("jLabel4");
+
+        jLabel4.setText("Filter by text:");
+
+        filterF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterFActionPerformed(evt);
+            }
+        });
+        filterF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                filterFKeyReleased(evt);
+            }
+        });
+
+        upB.setText("Previous");
+        upB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                upBActionPerformed(evt);
+            }
+        });
+
+        downB.setText("Next");
+        downB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                downBActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(deleteB)
                     .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(saveB)
-                            .addComponent(cancelB))
-                        .addGap(72, 72, 72)
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(deleteB)
                             .addGroup(panelLayout.createSequentialGroup()
+                                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(saveB)
+                                    .addComponent(cancelB))
+                                .addGap(72, 72, 72)
                                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
                                     .addComponent(jLabel2))
@@ -213,9 +262,21 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
                                         .addGap(63, 63, 63)
                                         .addComponent(jLabel3)
                                         .addGap(30, 30, 30)
-                                        .addComponent(applicantCBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(178, Short.MAX_VALUE))
+                                        .addComponent(applicantCBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(mistake, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(142, 142, 142)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(filterF, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(190, 190, 190)
+                        .addComponent(upB)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(downB)))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -235,10 +296,26 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
                         .addComponent(jLabel2)
                         .addComponent(jobCBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(deleteB)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87))
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addComponent(deleteB)
+                        .addContainerGap(234, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(mistake, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelLayout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addComponent(jLabel4))
+                            .addGroup(panelLayout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(filterF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(upB)
+                                    .addComponent(downB))))
+                        .addGap(11, 11, 11)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -251,7 +328,7 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
         );
 
         pack();
@@ -260,7 +337,10 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
     private void saveBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBActionPerformed
         // TODO add your handling code here:
         try{
-            int row = table.getSelectedRow();
+            if(jobCBM.getSelectedIndex() == 0 || applicantCBM.getSelectedIndex() == 0){
+            mistake.setText("You should fill all of the above field");
+            }else{
+            int row = table3.getSelectedRow();
             if(row == -1){
                 ApplicationDetails ad = new ApplicationDetails();
                ad.setJobID((Job)jcbm.getSelectedItem());
@@ -276,7 +356,7 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
                 adr.edit(ad);
             }
             clear();
-            loadTable();
+            loadTable();}
         }catch(AppFormException af){
             JOptionPane.showMessageDialog(this , "This data Exists");
         }
@@ -286,10 +366,26 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         clear();
     }//GEN-LAST:event_cancelBActionPerformed
-
+    private void sort(){
+     TableRowSorter<ApplicationDetailsTableModel> tr;
+        tr = new  TableRowSorter<ApplicationDetailsTableModel>((ApplicationDetailsTableModel) table3.getModel());
+        table3.setRowSorter(tr);
+     
+     
+     }
+     private void filter(String query){
+       //DefaultTableModel dtm = (DefaultTableModel)table.getModel();
+        TableRowSorter<ApplicationDetailsTableModel> tr;
+        tr = new  TableRowSorter<ApplicationDetailsTableModel>((ApplicationDetailsTableModel) table3.getModel());
+        table3.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(query));
+        
+        
+    }
+    
     private void deleteBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBActionPerformed
         // TODO add your handling code here:
-                   int row = table.getSelectedRow();
+                   int row = table3.getSelectedRow();
         if(row != -1){
         Object [] opsions = {"Yes" , "No"};
         int i = JOptionPane.showOptionDialog(this, "Do you want to delete this Application?", "Deletion", JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, null, opsions, opsions[1]);
@@ -316,19 +412,65 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jobCBMActionPerformed
 
+    private void jobCBMKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jobCBMKeyReleased
+mistake.setText(" ");        // TODO add your handling code here:
+    }//GEN-LAST:event_jobCBMKeyReleased
+
+    private void applicantCBMKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_applicantCBMKeyReleased
+mistake.setText(" ");         // TODO add your handling code here:
+    }//GEN-LAST:event_applicantCBMKeyReleased
+
+    private void filterFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_filterFKeyReleased
+        // TODO add your handling code here:
+        String query =filterF.getText();
+        filter(query);
+    }//GEN-LAST:event_filterFKeyReleased
+
+    private void filterFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_filterFActionPerformed
+
+    private void upBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upBActionPerformed
+        // TODO add your handling code here:
+          ApplicationDetailsTableModel model = (ApplicationDetailsTableModel) table3.getModel();
+        model.pageUp();
+         if (model.getPageOffset() == 0) {
+          upB.setEnabled(false);
+        }else{
+        downB.setEnabled(true);
+      }
+    }//GEN-LAST:event_upBActionPerformed
+
+    private void downBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downBActionPerformed
+        // TODO add your handling code here:
+        ApplicationDetailsTableModel model = (ApplicationDetailsTableModel) table3.getModel();
+        model.pageDown();
+           // If we hit the bottom of the data, disable the down button.
+        if (model.getPageOffset() == (model.getPageCount() - 1)) {
+          downB.setEnabled(false);
+        }else{
+        upB.setEnabled(true);
+      }
+    }//GEN-LAST:event_downBActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox applicantCBM;
     private javax.swing.JButton cancelB;
     private javax.swing.JButton deleteB;
+    private javax.swing.JButton downB;
+    private javax.swing.JTextField filterF;
     private javax.swing.JTextField idField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox jobCBM;
+    private javax.swing.JLabel mistake;
     private javax.swing.JPanel panel;
     private javax.swing.JButton saveB;
-    private javax.swing.JTable table;
+    private javax.swing.JTable table3;
+    private javax.swing.JButton upB;
     // End of variables declaration//GEN-END:variables
 }

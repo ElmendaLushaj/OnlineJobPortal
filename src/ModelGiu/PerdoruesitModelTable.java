@@ -17,8 +17,46 @@ public class PerdoruesitModelTable extends AbstractTableModel{
     List<Perdoruesi> listaa;
     String [] kolonat = {"ID:" , "Username:" , "Password:", "Rol ID:"};
     
+     protected int pageSize;
+
+  protected int pageOffset;
+    
     public PerdoruesitModelTable(){
     }
+    public int getPageOffset() {
+    return pageOffset;
+  }
+      public int getPageCount() {
+    return (int) Math.ceil((double) listaa.size() / pageSize);
+  }
+   public void setPageSize(int s) {
+    if (s == pageSize) {
+      return;
+    }
+    int oldPageSize = pageSize;
+    pageSize = s;
+    pageOffset = (oldPageSize * pageOffset) / pageSize;
+    fireTableDataChanged();
+    /*
+     * if (pageSize < oldPageSize) { fireTableRowsDeleted(pageSize,
+     * oldPageSize - 1); } else { fireTableRowsInserted(oldPageSize,
+     * pageSize - 1); }
+     */
+  }
+  public void pageDown() {
+    if (pageOffset < getPageCount() - 1) {
+      pageOffset++;
+      fireTableDataChanged();
+    }
+  }
+
+  // Update the page offset and fire a data changed (all rows).
+  public void pageUp() {
+    if (pageOffset > 0) {
+      pageOffset--;
+      fireTableDataChanged();
+    }
+  }
     public PerdoruesitModelTable(List<Perdoruesi> listaa){
     this.listaa= listaa;
     }
@@ -38,7 +76,7 @@ public class PerdoruesitModelTable extends AbstractTableModel{
     }
      @Override
      public int getRowCount(){
-     return listaa.size();
+     return Math.min(pageSize, listaa.size());
      }
      public Perdoruesi getPerdoruesi(int i){
      return listaa.get(i);
@@ -48,7 +86,8 @@ public class PerdoruesitModelTable extends AbstractTableModel{
      return kolonat.length;}
      @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Perdoruesi p = listaa.get(rowIndex);
+         int realRow = rowIndex + (pageOffset * pageSize);
+        Perdoruesi p = listaa.get(realRow);
         switch(columnIndex){
             case 0:
                 return p.getId();

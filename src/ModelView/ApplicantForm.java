@@ -13,12 +13,17 @@ import ModelGiu.ApplicantTableModel;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 
 /**
@@ -35,11 +40,14 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
         initComponents();
         loadTable();
         tabelaSelectedIndexChange();
+        sort();
         
         
     }
+   
      ApplicantRepository ar = new ApplicantRepository();
      ApplicantTableModel atm = new ApplicantTableModel();
+   
      //String [] gjinia = {"Female" , "Male" , "Other"};
     /* JComboBox jb = new JComboBox();
      
@@ -59,6 +67,7 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
          try{
               List<Applicant> lista = ar.findAll();
             atm.addList(lista);
+            atm.setPageSize(5);
             table.setModel(atm);
             atm.fireTableDataChanged();
         }catch(AppFormException ex){
@@ -81,6 +90,7 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
         jSpinner1 = new javax.swing.JSpinner();
         filterField = new javax.swing.JTextField();
         jRadioButton1 = new javax.swing.JRadioButton();
+        jButton1 = new javax.swing.JButton();
         desktop = new javax.swing.JPanel();
         addB = new javax.swing.JButton();
         cancelB = new javax.swing.JButton();
@@ -100,7 +110,12 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         genderCBM = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
+        mistake = new javax.swing.JLabel();
+        filterF = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        upB = new javax.swing.JButton();
+        downB = new javax.swing.JButton();
+        filterCBM = new javax.swing.JComboBox();
 
         filterField.setText("jTextField1");
 
@@ -108,6 +123,13 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
         jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -133,6 +155,30 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
         });
 
         idField.setEnabled(false);
+
+        nameField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nameFieldKeyReleased(evt);
+            }
+        });
+
+        contactField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                contactFieldKeyReleased(evt);
+            }
+        });
+
+        emailField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                emailFieldKeyReleased(evt);
+            }
+        });
+
+        psField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                psFieldKeyReleased(evt);
+            }
+        });
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -165,11 +211,43 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
                 genderCBMActionPerformed(evt);
             }
         });
+        genderCBM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                genderCBMKeyReleased(evt);
+            }
+        });
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        filterF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                filterFKeyReleased(evt);
+            }
+        });
+
+        jLabel8.setText("Filter by Text:");
+
+        upB.setText("Previous");
+        upB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                upBActionPerformed(evt);
+            }
+        });
+
+        downB.setText("Next");
+        downB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                downBActionPerformed(evt);
+            }
+        });
+
+        filterCBM.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Filter By gender", "Femal", "Male", "Other" }));
+        filterCBM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterCBMActionPerformed(evt);
+            }
+        });
+        filterCBM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                filterCBMKeyReleased(evt);
             }
         });
 
@@ -178,21 +256,14 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
         desktopLayout.setHorizontalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(desktopLayout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(desktopLayout.createSequentialGroup()
                 .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(desktopLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
                     .addGroup(desktopLayout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(deleteB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cancelB, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
                             .addComponent(addB, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(138, 138, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopLayout.createSequentialGroup()
                                 .addComponent(jLabel1)
@@ -201,18 +272,24 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopLayout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(90, 90, 90)
-                        .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(desktopLayout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(14, 14, 14)
-                                .addComponent(jLabel3))
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(genderCBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(desktopLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(filterF, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(102, 102, 102)))
+                .addGap(90, 90, 90)
+                .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(desktopLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel3))
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(genderCBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(76, 76, 76)
                 .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel5)
@@ -221,7 +298,23 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
                 .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(contactField, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(psField, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(143, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(desktopLayout.createSequentialGroup()
+                .addGap(83, 83, 83)
+                .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(desktopLayout.createSequentialGroup()
+                        .addGap(265, 265, 265)
+                        .addComponent(mistake, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(184, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(filterCBM, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(upB)
+                .addGap(82, 82, 82)
+                .addComponent(downB)
+                .addGap(279, 279, 279))
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,9 +344,18 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel7)
                             .addComponent(psField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(mistake, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(filterF, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(desktopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(upB)
+                    .addComponent(downB)
+                    .addComponent(filterCBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61))
         );
@@ -267,7 +369,7 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 36, Short.MAX_VALUE)
+                .addGap(0, 26, Short.MAX_VALUE)
                 .addComponent(desktop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -297,7 +399,20 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
 
     private void addBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBActionPerformed
         // TODO add your handling code here:
+       
         try{
+            String regex = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$";
+           Pattern patern = Pattern.compile(regex);
+           String email = emailField.getText();
+           Matcher matcher = patern.matcher(email);
+            if(nameField.getText().trim().isEmpty()   || emailField.getText().trim().isEmpty() || 
+                contactField.getText().trim().isEmpty()
+                || genderCBM.getSelectedIndex() == 0 || psField.getText().trim().isEmpty()) {
+            mistake.setText("All of the fields shoul be filled");
+        }else if(!matcher.matches()){
+          mistake.setText("email shoul be like : xxxx@xxx.xxx");
+        
+        }else {
             int row = table.getSelectedRow();
             if(row == -1){
             Applicant a = new Applicant();
@@ -326,7 +441,7 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
             ar.edit(a);
             }
             clear();
-            loadTable();
+            loadTable();}
         }catch(AppFormException af){
             JOptionPane.showMessageDialog(this , "This data Exists");
         }
@@ -350,6 +465,93 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
     }//GEN-LAST:event_jButton1ActionPerformed
+ 
+     private void sort(){
+     TableRowSorter<ApplicantTableModel> tr;
+        tr = new  TableRowSorter<ApplicantTableModel>((ApplicantTableModel) table.getModel());
+        table.setRowSorter(tr);
+     
+     
+     }
+     private void filterCBM(String query){
+    TableRowSorter<ApplicantTableModel> tr;
+        tr = new  TableRowSorter<ApplicantTableModel>((ApplicantTableModel) table.getModel());
+        
+        table.setRowSorter(tr);
+        if(query !="Filter By gender"){
+        tr.setRowFilter(RowFilter.regexFilter(query));
+        }
+     }
+    
+    private void filter(String query){
+       //DefaultTableModel dtm = (DefaultTableModel)table.getModel();
+        TableRowSorter<ApplicantTableModel> tr;
+        tr = new  TableRowSorter<ApplicantTableModel>((ApplicantTableModel) table.getModel());
+        table.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(query));
+        
+        
+    }
+    
+    private void nameFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameFieldKeyReleased
+        // TODO add your handling code here:
+        mistake.setText("");
+    }//GEN-LAST:event_nameFieldKeyReleased
+
+    private void emailFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailFieldKeyReleased
+mistake.setText("");        // TODO add your handling code here:
+    }//GEN-LAST:event_emailFieldKeyReleased
+
+    private void genderCBMKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_genderCBMKeyReleased
+mistake.setText("");        // TODO add your handling code here:
+    }//GEN-LAST:event_genderCBMKeyReleased
+
+    private void contactFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_contactFieldKeyReleased
+mistake.setText("");        // TODO add your handling code here:
+    }//GEN-LAST:event_contactFieldKeyReleased
+
+    private void psFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_psFieldKeyReleased
+mistake.setText("");        // TODO add your handling code here:
+    }//GEN-LAST:event_psFieldKeyReleased
+
+    private void filterFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_filterFKeyReleased
+        // TODO add your handling code here:
+        String query = filterF.getText();
+        filter(query);
+    }//GEN-LAST:event_filterFKeyReleased
+
+    private void upBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upBActionPerformed
+        // TODO add your handling code here:
+          ApplicantTableModel model = (ApplicantTableModel) table.getModel();
+        model.pageUp();
+         if (model.getPageOffset() == 0) {
+          upB.setEnabled(false);
+        }else{
+        downB.setEnabled(true);
+      }
+    }//GEN-LAST:event_upBActionPerformed
+
+    private void downBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downBActionPerformed
+        // TODO add your handling code here:
+         ApplicantTableModel model = (ApplicantTableModel) table.getModel();
+        model.pageDown();
+           // If we hit the bottom of the data, disable the down button.
+        if (model.getPageOffset() == (model.getPageCount() - 1)) {
+          downB.setEnabled(false);
+        }else{
+        upB.setEnabled(true);
+      }
+    }//GEN-LAST:event_downBActionPerformed
+
+    private void filterCBMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterCBMActionPerformed
+        // TODO add your handling code here:
+         String query = filterCBM.getSelectedItem().toString();
+        filterCBM(query);
+    }//GEN-LAST:event_filterCBMActionPerformed
+
+    private void filterCBMKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_filterCBMKeyReleased
+      
+    }//GEN-LAST:event_filterCBMKeyReleased
     
 
 
@@ -400,7 +602,10 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
     private javax.swing.JTextField contactField;
     private javax.swing.JButton deleteB;
     private javax.swing.JPanel desktop;
+    private javax.swing.JButton downB;
     private javax.swing.JTextField emailField;
+    private javax.swing.JComboBox filterCBM;
+    private javax.swing.JTextField filterF;
     private javax.swing.JTextField filterField;
     private javax.swing.JComboBox genderCBM;
     private javax.swing.JTextField genderField;
@@ -413,11 +618,14 @@ public class ApplicantForm extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JLabel mistake;
     private javax.swing.JTextField nameField;
     private javax.swing.JTextField psField;
     private javax.swing.JTable table;
+    private javax.swing.JButton upB;
     // End of variables declaration//GEN-END:variables
 }

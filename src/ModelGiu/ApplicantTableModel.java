@@ -16,6 +16,43 @@ import javax.swing.table.AbstractTableModel;
 public class ApplicantTableModel  extends AbstractTableModel{
     List <Applicant> lista;
     String [] kolonat = {"Applicant_ID" , "Name" , "Gender" , "Email" , "Contact" , "PS"};
+     protected int pageSize;
+    protected int pageOffset;
+    
+   public int getPageOffset() {
+    return pageOffset;
+  }
+      public int getPageCount() {
+    return (int) Math.ceil((double) lista.size() / pageSize);
+  }
+   public void setPageSize(int s) {
+    if (s == pageSize) {
+      return;
+    }
+    int oldPageSize = pageSize;
+    pageSize = s;
+    pageOffset = (oldPageSize * pageOffset) / pageSize;
+    fireTableDataChanged();
+    /*
+     * if (pageSize < oldPageSize) { fireTableRowsDeleted(pageSize,
+     * oldPageSize - 1); } else { fireTableRowsInserted(oldPageSize,
+     * pageSize - 1); }
+     */
+  }
+  public void pageDown() {
+    if (pageOffset < getPageCount() - 1) {
+      pageOffset++;
+      fireTableDataChanged();
+    }
+  }
+
+  // Update the page offset and fire a data changed (all rows).
+  public void pageUp() {
+    if (pageOffset > 0) {
+      pageOffset--;
+      fireTableDataChanged();
+    }
+  }
     
     public ApplicantTableModel(){}
     
@@ -34,7 +71,7 @@ public class ApplicantTableModel  extends AbstractTableModel{
     
     @Override
     public int getRowCount() {
-        return lista.size();
+        return  Math.min(pageSize, lista.size());
     }
     
     public void remove(int row){
@@ -49,7 +86,8 @@ public class ApplicantTableModel  extends AbstractTableModel{
     
     }
      public Object getValueAt(int rowI, int columnI) {
-        Applicant a = lista.get(rowI);
+        int realRow = rowI+ (pageOffset * pageSize);
+        Applicant a = lista.get(realRow);
         switch (columnI) {
             case 0:
                 return a.getApplicantID();

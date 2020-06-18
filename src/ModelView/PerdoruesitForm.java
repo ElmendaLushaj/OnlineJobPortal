@@ -14,6 +14,7 @@ import ModelGiu.PerdoruesitModelTable;
 import ModelGiu.RoliComboBoxModel;
 import ModelGiu.RoliTableModel;
 import java.awt.PopupMenu;
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,11 +49,14 @@ public class PerdoruesitForm extends javax.swing.JInternalFrame {
     //}
     
     
-    
+   // Pageable paging = PageRequest.of(pageNo, pageSize);
+ 
+    // Page<Perdoruesit> pagedResult = PerdoruesitRepository.findAll(paging); 
     
     public void loadTable(){
      try{
             List<Perdoruesi> lista = pr.findAll();
+            ptm.setPageSize(5);
             ptm.addList(lista);
             perdoruesitTable.setModel(ptm);
             ptm.fireTableDataChanged();
@@ -110,6 +114,8 @@ public class PerdoruesitForm extends javax.swing.JInternalFrame {
         comboBox = new javax.swing.JComboBox();
         cancelB = new javax.swing.JButton();
         deleteB = new javax.swing.JButton();
+        upB = new javax.swing.JButton();
+        downB = new javax.swing.JButton();
 
         table3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -176,6 +182,20 @@ public class PerdoruesitForm extends javax.swing.JInternalFrame {
             }
         });
 
+        upB.setText("Previous");
+        upB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                upBActionPerformed(evt);
+            }
+        });
+
+        downB.setText("Next");
+        downB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                downBActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout paneliLayout = new javax.swing.GroupLayout(paneli);
         paneli.setLayout(paneliLayout);
         paneliLayout.setHorizontalGroup(
@@ -200,7 +220,12 @@ public class PerdoruesitForm extends javax.swing.JInternalFrame {
                         .addGap(66, 66, 66)
                         .addComponent(cancelB)
                         .addGap(59, 59, 59)
-                        .addComponent(deleteB)))
+                        .addComponent(deleteB))
+                    .addGroup(paneliLayout.createSequentialGroup()
+                        .addGap(155, 155, 155)
+                        .addComponent(upB)
+                        .addGap(36, 36, 36)
+                        .addComponent(downB)))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
         paneliLayout.setVerticalGroup(
@@ -217,9 +242,13 @@ public class PerdoruesitForm extends javax.swing.JInternalFrame {
                     .addComponent(saveButton)
                     .addComponent(cancelB)
                     .addComponent(deleteB))
-                .addGap(38, 38, 38)
+                .addGap(51, 51, 51)
+                .addGroup(paneliLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(upB)
+                    .addComponent(downB))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(285, Short.MAX_VALUE))
+                .addContainerGap(242, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -299,6 +328,29 @@ public class PerdoruesitForm extends javax.swing.JInternalFrame {
         else {
          JOptionPane.showMessageDialog(this, "You dind't chose anything to delete");}
     }//GEN-LAST:event_deleteBActionPerformed
+
+    private void upBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upBActionPerformed
+        // TODO add your handling code here:
+         PerdoruesitModelTable model = (PerdoruesitModelTable) perdoruesitTable.getModel();
+        model.pageUp();
+         if (model.getPageOffset() == 0) {
+          upB.setEnabled(false);
+        }else{
+        downB.setEnabled(true);
+      }
+    }//GEN-LAST:event_upBActionPerformed
+
+    private void downBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downBActionPerformed
+        // TODO add your handling code here:
+             PerdoruesitModelTable model = (PerdoruesitModelTable) perdoruesitTable.getModel();
+        model.pageDown();
+           // If we hit the bottom of the data, disable the down button.
+        if (model.getPageOffset() == (model.getPageCount() - 1)) {
+          downB.setEnabled(false);
+        }else{
+        upB.setEnabled(true);
+      }
+    }//GEN-LAST:event_downBActionPerformed
 public void clear(){
      perdoruesitTable.clearSelection();
      idField.setText("");
@@ -334,6 +386,7 @@ public void clear(){
     private javax.swing.JButton cancelB;
     private javax.swing.JComboBox comboBox;
     private javax.swing.JButton deleteB;
+    private javax.swing.JButton downB;
     private javax.swing.JTextField idField;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -344,6 +397,7 @@ public void clear(){
     private javax.swing.JButton saveB;
     private javax.swing.JButton saveButton;
     private javax.swing.JTable table3;
+    private javax.swing.JButton upB;
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
 }
