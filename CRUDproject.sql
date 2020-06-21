@@ -233,30 +233,46 @@ CREATE TABLE [dbo].[ApplicationDetails](
 ) ON [PRIMARY]
 GO
 
-	USE CRUDproject
-   CREATE TABLE [dbo].[User](
-   [ID][int]	IDENTITY(1,1)NOT NULL,
-   [Username][varchar](50)NULL,
-   [Password][varchar](550)NULL,
-   [RoleID][int]NULL,
-   CONSTRAINT [PK_User]PRIMARY KEY CLUSTERED
-   (
-   [ID]ASC
-   )WITH(PAD_INDEX=OFF,STATISTICS_NORECOMPUTE=OFF,IGNORE_DUP_KEY = OFF, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+
+
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[User](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Username] [varchar](50) NULL,
+	[Password] [varchar](550) NULL,
+	[RoleID] [int] NULL,
+ CONSTRAINT [PK_Perdoruesi] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
 
- CREATE TABLE [dbo].[Role](
-   [ID][int]	IDENTITY(1,1)NOT NULL,
-   [Name][varchar](50)NULL,
-  
-   CONSTRAINT [PK_Role]PRIMARY KEY CLUSTERED
-   (
-   [ID]ASC
-   )WITH(PAD_INDEX=OFF,STATISTICS_NORECOMPUTE=OFF,IGNORE_DUP_KEY = OFF,  ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+CREATE TABLE [dbo].[Role](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](50) NULL,
+ CONSTRAINT [PK_Role] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+ALTER TABLE Employer
+ADD filetype IMAGE  ;
+ALTER TABLE Applicant
+ADD filetype IMAGE  ;
+INSERT [dbo].[User] ([Username], [Password], [RoleID]) VALUES (N'elmenda.lushaj', N'123456', 1)
+INSERT [dbo].[User] ([Username], [Password], [RoleID]) VALUES (N'lester.branch', N'0000', 2)
+INSERT [dbo].[User] ([Username], [Password], [RoleID]) VALUES (N'macy.riviera', N'1111', 3)
 
+
+INSERT [dbo].[Role] ([Name]) VALUES (N'Admin')
+INSERT [dbo].[Role] ([Name]) VALUES (N'User')
+INSERT [dbo].[Role] ([Name]) VALUES (N'UserEmployer')
 
 
 ALTER TABLE [dbo].[User]  WITH CHECK ADD  CONSTRAINT [FK_User_Role] FOREIGN KEY([RoleID])
@@ -399,19 +415,48 @@ INSERT [dbo].[ApplicationDetails]([Application_ID],[Job_ID],[Applicant_ID]) VALU
 INSERT [dbo].[ApplicationDetails]([Application_ID],[Job_ID],[Applicant_ID]) VALUES (1000012,80012,698740);
 INSERT [dbo].[ApplicationDetails]([Application_ID],[Job_ID],[Applicant_ID]) VALUES (1000013,80013,534398);
 INSERT [dbo].[ApplicationDetails]([Application_ID],[Job_ID],[Applicant_ID]) VALUES (1000014,80014,062134);
-SET IDENTITY_INSERT [dbo].[ApplicationDetails] off
-	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'lester.branch',N'123456',1)
-	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'joseph.cervantes',N'654321',1)
-	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'claudia.morales',N'987654',2)
-	INSERT [dbo].[User]([Username],[Password],[RoleID])VALUES (N'galvin.thomas',N'456789',3)
-	
-	
-	INSERT [dbo].[Role]([Name]) VALUES (N'Admin');
-	INSERT [dbo].[Role]([Name]) VALUES (N'User');
-	INSERT [dbo].[Role]([Name]) VALUES (N'User Employer');
-	
+SET IDENTITY_INSERT [dbo].[ApplicationDetails] OFF
+
 
 USE [master]
 GO
 ALTER DATABASE [CRUDproject] SET  READ_WRITE 
+GO
+USE CRUDproject
+
+CREATE TABLE [dbo].[Perdoruesi](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Username] [varchar](50) NULL,
+	[Password] [varchar](550) NULL,
+	[RoliID] [int] NULL,
+ CONSTRAINT [PK_Perdoruesi] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[Roli](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[Emertimi] [varchar](50) NULL,
+ CONSTRAINT [PK_Roli] PRIMARY KEY CLUSTERED 
+(
+	[ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+INSERT [dbo].[Perdoruesi] ([Username], [Password], [RoliID]) VALUES (N'useradmin', N'123456', 1)
+INSERT [dbo].[Perdoruesi] ([Username], [Password], [RoliID]) VALUES (N'useremployer', N'000', 2)
+INSERT [dbo].[Perdoruesi] ([Username], [Password], [RoliID]) VALUES (N'userapplicant', N'444', 3)
+
+INSERT [dbo].[Roli] ([Emertimi]) VALUES (N'Admini')
+INSERT [dbo].[Roli] ([Emertimi]) VALUES (N'UserEmployer')
+INSERT [dbo].[Roli] ([Emertimi]) VALUES (N'Useri')
+
+ALTER TABLE [dbo].[Perdoruesi]  WITH CHECK ADD  CONSTRAINT [FK_Perdoruesi_Roli] FOREIGN KEY([RoliID])
+REFERENCES [dbo].[Roli] ([ID])
+GO
+ALTER TABLE [dbo].[Perdoruesi] CHECK CONSTRAINT [FK_Perdoruesi_Roli]
 GO
