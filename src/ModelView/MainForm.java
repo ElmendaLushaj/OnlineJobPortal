@@ -26,7 +26,7 @@ public class MainForm extends javax.swing.JFrame {
         //Nese doni me bo max screen e shkruni kodin me poshte:
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
-        if(userRoli ==2){
+       /* if(userRoli ==2){
             employerButton.setVisible(false);
             jobB.setVisible(false);
             catogoryMenu.setVisible(false);
@@ -42,7 +42,7 @@ public class MainForm extends javax.swing.JFrame {
             admin.setVisible(false);
             employerButton.setVisible(false);
             userMenu.setVisible(false);
-        }
+        }*/
     }
   /*  public MainForm(int userRole){
     initComponents();

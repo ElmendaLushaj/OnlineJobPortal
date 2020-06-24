@@ -37,6 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Applicant.findByAContact", query = "SELECT a FROM Applicant a WHERE a.aContact = :aContact"),
     @NamedQuery(name = "Applicant.findByProfessionalSummary", query = "SELECT a FROM Applicant a WHERE a.professionalSummary = :professionalSummary")})
 public class Applicant implements Serializable {
+    @Column(name = "Img")
+    private String img;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -158,6 +160,14 @@ public class Applicant implements Serializable {
     @Override
     public String toString() {
         return applicantID +(": ")+aName;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
     
 }

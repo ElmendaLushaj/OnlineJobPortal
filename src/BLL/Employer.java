@@ -35,6 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Employer.findByEContact", query = "SELECT e FROM Employer e WHERE e.eContact = :eContact"),
     @NamedQuery(name = "Employer.findByEEmail", query = "SELECT e FROM Employer e WHERE e.eEmail = :eEmail")})
 public class Employer implements Serializable {
+    @Column(name = "Img")
+    private String img;
     
     
   
@@ -42,7 +44,7 @@ public class Employer implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "Employer_ID")
-      @GeneratedValue(generator = "InvSeq")
+    @GeneratedValue(generator = "InvSeq")
     @SequenceGenerator(name = "InvSeq" , sequenceName = "INV_SEQ", allocationSize = 1)
     private Integer employerID;
     @Basic(optional = false)
@@ -146,6 +148,14 @@ public class Employer implements Serializable {
     @Override
     public String toString() {
         return  employerID+(": ")+eName ;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
     
 }

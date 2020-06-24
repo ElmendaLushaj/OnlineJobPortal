@@ -6,9 +6,7 @@
 package BLL;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -16,10 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -44,8 +40,6 @@ public class JobCategory implements Serializable {
     @JoinColumn(name = "Employer_ID", referencedColumnName = "Employer_ID")
     @ManyToOne(optional = false)
     private Employer employerID;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryID")
-    private Collection<Job> jobCollection;
 
     public JobCategory() {
     }
@@ -83,15 +77,6 @@ public class JobCategory implements Serializable {
         this.employerID = employerID;
     }
 
-    @XmlTransient
-    public Collection<Job> getJobCollection() {
-        return jobCollection;
-    }
-
-    public void setJobCollection(Collection<Job> jobCollection) {
-        this.jobCollection = jobCollection;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -114,7 +99,7 @@ public class JobCategory implements Serializable {
 
     @Override
     public String toString() {
-        return categoryID+(": ")+categoryName;
+        return "BLL.JobCategory[ categoryID=" + categoryID + " ]";
     }
     
 }

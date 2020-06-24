@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class ApplicantTableModel  extends AbstractTableModel{
     List <Applicant> lista;
-    String [] kolonat = {"Applicant_ID" , "Name" , "Gender" , "Email" , "Contact" , "PS"};
+    String [] kolonat = {"Applicant_ID" , "Name" , "Gender" , "Email" , "Contact" , "PS" , "Picture path"};
      protected int pageSize;
     protected int pageOffset;
     
@@ -100,8 +100,10 @@ public class ApplicantTableModel  extends AbstractTableModel{
                
             case 4:
                 return a.getAContact();
-                  case 5:
+            case 5:
                 return a.getProfessionalSummary();
+            case 6:
+                return a.getImg();
             default:
                 return null;
 

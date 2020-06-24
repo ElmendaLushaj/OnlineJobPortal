@@ -164,13 +164,14 @@ public class LogIn extends javax.swing.JFrame {
             PerdoruesiRepository pr = new PerdoruesiRepository();
             Perdoruesi p = pr.loginByUsernameAndPassword(usernameField.getText(), new String(passwordField.getPassword()));
             if (p != null) {
-                    //if(p.getRoliID().getId() == 1){
-                    //    new AdminMainForm
-                    //}else{
-                    //    new UserMainForm
-                    //}
-                    new MainForm(p.getRoliID().getId()).setVisible(true);
+                    if(p.getRoliID().getId() == 1){
+                         new MainForm(p.getRoliID().getId()).setVisible(true);
                 this.setVisible(false);
+                    }else{
+                        new UserForm(p.getRoliID().getId()).setVisible(true);
+                        this.setVisible(false);
+                    }
+                  
             }
           }
         } catch (AppFormException ex) {

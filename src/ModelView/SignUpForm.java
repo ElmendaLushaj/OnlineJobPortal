@@ -16,11 +16,13 @@ import DAL.PerdoruesiRepository;
 import DAL.RoliRepository;
 import ModelGiu.RoliComboBoxModel;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
 import javax.swing.JOptionPane;
@@ -99,6 +101,7 @@ public class SignUpForm extends javax.swing.JFrame {
         mistake = new javax.swing.JLabel();
         openFileB = new javax.swing.JButton();
         fileChooserrr = new javax.swing.JLabel();
+        imgLabel = new javax.swing.JLabel();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -237,27 +240,32 @@ public class SignUpForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(idField1, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                                .addComponent(usernameField)
+                                .addComponent(emailField)
+                                .addComponent(passwordfield)
+                                .addComponent(Confirmpasswordfield))
+                            .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(psField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(contactField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(genderCBM, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2))
+                        .addComponent(jButton2)))
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelLayout.createSequentialGroup()
-                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(idField1, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                                    .addComponent(usernameField)
-                                    .addComponent(emailField)
-                                    .addComponent(passwordfield)
-                                    .addComponent(Confirmpasswordfield))
-                                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(psField, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(contactField, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(genderCBM, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(openFileB)
                         .addGap(100, 100, 100)
-                        .addComponent(fileChooserrr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(157, 157, 157))
+                        .addComponent(fileChooserrr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(157, 157, 157))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(imgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,18 +303,22 @@ public class SignUpForm extends javax.swing.JFrame {
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(contactField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(psField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10))
-                .addGap(18, 18, 18)
-                .addComponent(mistake, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(psField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
+                        .addGap(18, 18, 18)
+                        .addComponent(mistake, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2))
+                    .addGroup(panelLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(imgLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(60, 60, 60))
         );
 
@@ -315,9 +327,9 @@ public class SignUpForm extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addContainerGap()
                 .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(51, 51, 51))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -379,14 +391,16 @@ public class SignUpForm extends javax.swing.JFrame {
             pff.loadTable();
           
             if (p != null) {
-                    //if(p.getRoliID().getId() == 1){
-                    //    new AdminMainForm
-                    //}else{
-                    //    new UserMainForm
-                    //}
-                    new MainForm(p.getRoliID().getId()).setVisible(true);
+                    if(p.getRoliID().getId() == 1){
+                         new MainForm(p.getRoliID().getId()).setVisible(true);
                 this.setVisible(false);
                 JOptionPane.showMessageDialog(this,"Welcome to Online Job Portal");
+                    }else{
+                        new UserForm(p.getRoliID().getId()).setVisible(true);
+                this.setVisible(false);
+                JOptionPane.showMessageDialog(this,"Welcome to Online Job Portal");
+                    }
+                  
             }
            
             
@@ -402,7 +416,7 @@ public class SignUpForm extends javax.swing.JFrame {
            
             a.setAContact(Integer.parseInt(contactField.getText()));
              a.setProfessionalSummary(psField.getText());
-            
+            a.setImg(fileChooserrr.getText());
             ar.create(a);
             aff.loadTable();
                 
@@ -411,6 +425,7 @@ public class SignUpForm extends javax.swing.JFrame {
             em.setEName(usernameField.getText());
             em.setEEmail(emailField.getText());
             em.setEContact(Integer.parseInt(contactField.getText()));
+            em.setImg(fileChooserrr.getText());
             er.create(em);
             eff.loadTable();
          }
@@ -467,8 +482,13 @@ public class SignUpForm extends javax.swing.JFrame {
         int returnValue = openFileChooser.showOpenDialog(this);
         if(returnValue == JFileChooser.APPROVE_OPTION){
             try{
+            File f =openFileChooser.getSelectedFile();
+          
             bi = ImageIO.read(openFileChooser.getSelectedFile());
-            fileChooserrr.setText("File was choosen successfully");
+            ImageIcon ii = new ImageIcon(bi);
+            imgLabel.setIcon(ii);
+            fileChooserrr.setText(f.getAbsolutePath());
+            //fileChooserrr.setText(bi);
             }catch(IOException e){
             
             }
@@ -540,6 +560,7 @@ public class SignUpForm extends javax.swing.JFrame {
     private javax.swing.JLabel fileChooserrr;
     private javax.swing.JComboBox genderCBM;
     private javax.swing.JTextField idField1;
+    private javax.swing.JLabel imgLabel;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;

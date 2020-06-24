@@ -15,7 +15,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class EmployerTableModel extends AbstractTableModel{
     List<Employer>list;
-    String [] kolonat = {"Employer_Id" , "Name" , "Contact", "Email"};
+    String [] kolonat = {"Employer_Id" , "Name" , "Contact", "Email" , "Picture Path"};
     protected int pageSize;
     protected int pageOffset;
     
@@ -26,27 +26,31 @@ public class EmployerTableModel extends AbstractTableModel{
       public int getPageCount() {
     return (int) Math.ceil((double) list.size() / pageSize);
   }
-   public void setPageSize(int s) {
-    if (s == pageSize) {
-      return;
-    }
+      
+      
+   public void setPageSize(int s ) {
+       
+   
+ 
     int oldPageSize = pageSize;
     pageSize = s;
     pageOffset = (oldPageSize * pageOffset) / pageSize;
     fireTableDataChanged();
-    /*
-     * if (pageSize < oldPageSize) { fireTableRowsDeleted(pageSize,
-     * oldPageSize - 1); } else { fireTableRowsInserted(oldPageSize,
-     * pageSize - 1); }
+}
+    
+      /*if (pageSize < oldPageSize) { fireTableRowsDeleted(pageSize,
+      oldPageSize - 1); } else { fireTableRowsInserted(oldPageSize,
+      pageSize - 1); }
      */
-  }
+
+
   public void pageDown() {
     if (pageOffset < getPageCount() - 1) {
       pageOffset++;
       fireTableDataChanged();
     }
   }
-
+ 
   // Update the page offset and fire a data changed (all rows).
   public void pageUp() {
     if (pageOffset > 0) {
@@ -69,7 +73,7 @@ public class EmployerTableModel extends AbstractTableModel{
     
     @Override
     public int getRowCount() {
-        return Math.min(pageSize, list.size());
+        return Math.min(5, list.size());
     }
     
     public void remove(int row){
@@ -85,6 +89,7 @@ public class EmployerTableModel extends AbstractTableModel{
     }
     
     public Object getValueAt(int rowI, int columnI) {
+      
         int realRow = rowI + (pageOffset * pageSize);
         Employer e = list.get(realRow);
         switch (columnI) {
@@ -96,9 +101,16 @@ public class EmployerTableModel extends AbstractTableModel{
                 return e.getEContact();
             case 3:
                 return e.getEEmail();
+            case 4:
+                return e.getImg();
             default:
                 return null;
 
+        
+    
+
+    
         }
     }
 }
+

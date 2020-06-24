@@ -50,10 +50,13 @@ public class EmployerForm extends javax.swing.JInternalFrame {
     public void loadTable(){
         try{
             List<Employer> lista = er.findAll();
+            //Pegeable p = new PageRequest(1  , Integer.MAX_VALUE);
+          //  etm.maxResults(5);
             etm.setPageSize(5);
             etm.addList(lista);
             table.setModel(etm);
             etm.fireTableDataChanged();
+            
         }catch(AppFormException ex){
             Logger.getLogger(EmployerForm.class.getName()).log(Level.SEVERE,null,ex);
         }
@@ -206,6 +209,11 @@ public class EmployerForm extends javax.swing.JInternalFrame {
 
         jLabel5.setText("Filter with Text:");
 
+        filterF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterFActionPerformed(evt);
+            }
+        });
         filterF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 filterFKeyReleased(evt);
@@ -486,6 +494,10 @@ mistake.setText(" ");            // TODO add your handling code here:
         upB.setEnabled(true);
       }
     }//GEN-LAST:event_downBActionPerformed
+
+    private void filterFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_filterFActionPerformed
    
     public void clear(){
      table.clearSelection();
