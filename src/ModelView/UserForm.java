@@ -16,6 +16,7 @@ public class UserForm extends javax.swing.JFrame {
      */
     public UserForm() {
         initComponents();
+         setSize(1300 , 700); 
     }
     
     public UserForm(int userRoli) {
@@ -24,13 +25,15 @@ public class UserForm extends javax.swing.JFrame {
         //setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         if(userRoli ==2){
-            
+            EnewJobB.setVisible(false);
+            ElocationListB.setVisible(false);
            
         }else if(userRoli ==3){
             AemployerListB.setVisible(false);
             AjobListB.setVisible(false);
-            AcompanyListB.setVisible(false);
+            AnewApplicationB.setVisible(false);
            // AcategoryListB.setVisible(false);
+            
            
         }
     }
@@ -54,6 +57,8 @@ public class UserForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         AnewApplicationB = new javax.swing.JButton();
         desktopPane2 = new javax.swing.JDesktopPane();
+        EnewJobB = new javax.swing.JButton();
+        ElocationListB = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -76,6 +81,11 @@ public class UserForm extends javax.swing.JFrame {
         });
 
         AjobListB.setText("Jobs avaliable");
+        AjobListB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AjobListBActionPerformed(evt);
+            }
+        });
 
         AcompanyListB.setText("Companies");
         AcompanyListB.addActionListener(new java.awt.event.ActionListener() {
@@ -94,18 +104,37 @@ public class UserForm extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("User form");
 
-        AnewApplicationB.setText("Make a new Application");
+        AnewApplicationB.setText("Add a new Application");
+        AnewApplicationB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AnewApplicationBActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout desktopPane2Layout = new javax.swing.GroupLayout(desktopPane2);
         desktopPane2.setLayout(desktopPane2Layout);
         desktopPane2Layout.setHorizontalGroup(
             desktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 562, Short.MAX_VALUE)
+            .addGap(0, 909, Short.MAX_VALUE)
         );
         desktopPane2Layout.setVerticalGroup(
             desktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 560, Short.MAX_VALUE)
         );
+
+        EnewJobB.setText("Add a new Job to the list");
+        EnewJobB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EnewJobBActionPerformed(evt);
+            }
+        });
+
+        ElocationListB.setText("Location List");
+        ElocationListB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ElocationListBActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout desktopPaneLayout = new javax.swing.GroupLayout(desktopPane);
         desktopPane.setLayout(desktopPaneLayout);
@@ -115,41 +144,52 @@ public class UserForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(desktopPaneLayout.createSequentialGroup()
-                        .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AjobListB)
-                            .addComponent(AemployerListB)
-                            .addComponent(AcompanyListB)
-                            .addComponent(AcategoryListB))
-                        .addGap(18, 18, 18)
-                        .addComponent(desktopPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(14, 14, 14)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(AcategoryListB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(AcompanyListB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(AemployerListB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ElocationListB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(AjobListB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(desktopPaneLayout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
-                        .addComponent(AnewApplicationB, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(AnewApplicationB, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, desktopPaneLayout.createSequentialGroup()
+                                .addComponent(EnewJobB, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)))
+                        .addGap(75, 75, 75))
+                    .addGroup(desktopPaneLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(desktopPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(127, Short.MAX_VALUE))))
         );
         desktopPaneLayout.setVerticalGroup(
             desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(desktopPaneLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addComponent(AcategoryListB, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(116, 116, 116)
+                .addComponent(AjobListB, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(ElocationListB, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(AemployerListB, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                .addComponent(AcompanyListB, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60))
+            .addGroup(desktopPaneLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(AnewApplicationB))
+                .addComponent(AnewApplicationB)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(desktopPaneLayout.createSequentialGroup()
-                        .addComponent(AcategoryListB)
-                        .addGap(89, 89, 89)
-                        .addComponent(AjobListB)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                        .addComponent(AcompanyListB)
-                        .addGap(103, 103, 103)
-                        .addComponent(AemployerListB)
-                        .addGap(56, 56, 56))
-                    .addGroup(desktopPaneLayout.createSequentialGroup()
-                        .addComponent(desktopPane2)
-                        .addContainerGap())))
+                .addComponent(EnewJobB)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(desktopPane2)
+                .addGap(17, 17, 17))
         );
         desktopPane.setLayer(AemployerListB, javax.swing.JLayeredPane.DEFAULT_LAYER);
         desktopPane.setLayer(AjobListB, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -158,6 +198,8 @@ public class UserForm extends javax.swing.JFrame {
         desktopPane.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         desktopPane.setLayer(AnewApplicationB, javax.swing.JLayeredPane.DEFAULT_LAYER);
         desktopPane.setLayer(desktopPane2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        desktopPane.setLayer(EnewJobB, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        desktopPane.setLayer(ElocationListB, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -195,6 +237,35 @@ public class UserForm extends javax.swing.JFrame {
         desktopPane2.add(elf);
         elf.show();
     }//GEN-LAST:event_AemployerListBActionPerformed
+
+    private void AjobListBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjobListBActionPerformed
+        // TODO add your handling code here:
+        JobListForm jlf = new JobListForm();
+        desktopPane2.add(jlf);
+        jlf.show();
+    }//GEN-LAST:event_AjobListBActionPerformed
+
+    private void AnewApplicationBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnewApplicationBActionPerformed
+        // TODO add your handling code here:
+        
+        AddApplicationForm apf = new AddApplicationForm();
+        desktopPane2.add(apf);
+        apf.show();
+    }//GEN-LAST:event_AnewApplicationBActionPerformed
+
+    private void EnewJobBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnewJobBActionPerformed
+        // TODO add your handling code here:
+        AddJobForm ajf = new AddJobForm();
+        desktopPane2.add(ajf);
+        ajf.show();
+    }//GEN-LAST:event_EnewJobBActionPerformed
+
+    private void ElocationListBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ElocationListBActionPerformed
+        // TODO add your handling code here:
+        LocationListForm llf = new LocationListForm();
+        desktopPane2.add(llf);
+        llf.show();
+    }//GEN-LAST:event_ElocationListBActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,6 +308,8 @@ public class UserForm extends javax.swing.JFrame {
     private javax.swing.JButton AemployerListB;
     private javax.swing.JButton AjobListB;
     private javax.swing.JButton AnewApplicationB;
+    private javax.swing.JButton ElocationListB;
+    private javax.swing.JButton EnewJobB;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JDesktopPane desktopPane2;
     private javax.swing.JLabel jLabel1;

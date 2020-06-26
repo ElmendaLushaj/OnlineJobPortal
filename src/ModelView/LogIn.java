@@ -24,6 +24,8 @@ public class LogIn extends javax.swing.JFrame {
         getContentPane().setBackground(Color.WHITE);
         initComponents();
         setLocationRelativeTo(null);
+        setSize(650 , 700);
+        
     }
 
     /**

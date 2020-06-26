@@ -12,6 +12,7 @@ import DAL.EmployerRepository;
 import DAL.LocationRepository;
 import ModelGiu.EmployerComboBoxModel;
 import ModelGiu.LocationTableModel;
+import java.awt.Color;
 
 
 import java.util.List;
@@ -49,6 +50,9 @@ public class LocationForm extends javax.swing.JInternalFrame {
         tabelaSelectedIndexChange();
         loadComboBox();
         sort();
+        Color c = new Color(204 , 204 , 255);
+        locationPanel.setBackground(c);
+        
       
     }
   
@@ -126,6 +130,7 @@ public class LocationForm extends javax.swing.JInternalFrame {
         filterF = new javax.swing.JTextField();
         upButton = new javax.swing.JButton();
         downButton = new javax.swing.JButton();
+        filterCBM = new javax.swing.JComboBox();
 
         locationTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -209,6 +214,13 @@ public class LocationForm extends javax.swing.JInternalFrame {
             }
         });
 
+        filterCBM.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Filter by Employer", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        filterCBM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterCBMActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout locationPanelLayout = new javax.swing.GroupLayout(locationPanel);
         locationPanel.setLayout(locationPanelLayout);
         locationPanelLayout.setHorizontalGroup(
@@ -235,14 +247,19 @@ public class LocationForm extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)))
                         .addGroup(locationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(locationPanelLayout.createSequentialGroup()
-                                .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(locationIdField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, locationPanelLayout.createSequentialGroup()
+                                .addGroup(locationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(locationPanelLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(filterCBM, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(locationPanelLayout.createSequentialGroup()
+                                        .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(employerCBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(235, 235, 235))
-                            .addComponent(locationIdField, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(235, 235, 235))))))
             .addGroup(locationPanelLayout.createSequentialGroup()
                 .addGroup(locationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(locationPanelLayout.createSequentialGroup()
@@ -257,7 +274,7 @@ public class LocationForm extends javax.swing.JInternalFrame {
                     .addGroup(locationPanelLayout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 702, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         locationPanelLayout.setVerticalGroup(
             locationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,15 +303,17 @@ public class LocationForm extends javax.swing.JInternalFrame {
                         .addGroup(locationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(mistake, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(deleteB, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addGroup(locationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(filterF, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)))
-                    .addGroup(locationPanelLayout.createSequentialGroup()
-                        .addContainerGap(188, Short.MAX_VALUE)
+                            .addComponent(jLabel4))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, locationPanelLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(locationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(downButton)
-                            .addComponent(upButton))
+                            .addComponent(upButton)
+                            .addComponent(filterCBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(8, 8, 8)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(97, 97, 97))
@@ -306,11 +325,11 @@ public class LocationForm extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(locationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 18, Short.MAX_VALUE))
+                .addGap(0, 247, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(locationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(locationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -357,6 +376,15 @@ public class LocationForm extends javax.swing.JInternalFrame {
         tr.setRowFilter(RowFilter.regexFilter(query));
         
         
+    }
+     
+     public void filterCBM(String query){
+     TableRowSorter<LocationTableModel> tr;
+        tr = new  TableRowSorter<LocationTableModel>((LocationTableModel) locationTable.getModel());
+        locationTable.setRowSorter(tr);
+        if(query !="Filter by Employer"){
+        tr.setRowFilter(RowFilter.regexFilter(query));
+        }
     }
     private void cancelBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelBActionPerformed
         // TODO add your handling code here:
@@ -432,6 +460,12 @@ mistake.setText(" ");           // TODO add your handling code here:
        
     }//GEN-LAST:event_upButtonActionPerformed
 
+    private void filterCBMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterCBMActionPerformed
+        // TODO add your handling code here:
+         String query = filterCBM.getSelectedItem().toString();
+        filterCBM(query);
+    }//GEN-LAST:event_filterCBMActionPerformed
+
     public void clear(){
     locationTable.clearSelection();
     locationIdField.setText("");
@@ -447,6 +481,7 @@ mistake.setText(" ");           // TODO add your handling code here:
     private javax.swing.JButton deleteB;
     private javax.swing.JButton downButton;
     private javax.swing.JComboBox employerCBM;
+    private javax.swing.JComboBox filterCBM;
     private javax.swing.JTextField filterF;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -6,6 +6,8 @@
 package ModelView;
 
 import BLL.ApplicationDetails;
+import java.awt.Color;
+import javax.swing.JFrame;
 //import BLL.Role;
 
 /**
@@ -19,8 +21,15 @@ public class MainForm extends javax.swing.JFrame {
      */
     public MainForm() {
         initComponents();
-        setLocationRelativeTo(null);
+       // setLocationRelativeTo(null);
+        setSize(1300 , 700); 
+        
+     
+       
     }
+    
+   
+    
      public MainForm(int userRoli) {
         initComponents();
         //Nese doni me bo max screen e shkruni kodin me poshte:
@@ -81,6 +90,7 @@ public class MainForm extends javax.swing.JFrame {
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
         buttonPane = new javax.swing.JDesktopPane();
         employerButton = new javax.swing.JButton();
         locationB = new javax.swing.JButton();
@@ -103,6 +113,7 @@ public class MainForm extends javax.swing.JFrame {
         locationMenu = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
         applicationMenu = new javax.swing.JMenu();
+        jMenuItem12 = new javax.swing.JMenuItem();
         admin = new javax.swing.JMenu();
         userList = new javax.swing.JMenuItem();
 
@@ -124,8 +135,12 @@ public class MainForm extends javax.swing.JFrame {
 
         jMenuItem10.setText("jMenuItem10");
 
+        jMenuItem11.setText("jMenuItem11");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        employerButton.setBackground(new java.awt.Color(0, 0, 0));
+        employerButton.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         employerButton.setText("Employer");
         employerButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,6 +148,8 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        locationB.setBackground(new java.awt.Color(0, 0, 0));
+        locationB.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         locationB.setText("Location");
         locationB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,6 +157,8 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        applicantB.setBackground(new java.awt.Color(0, 0, 0));
+        applicantB.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         applicantB.setText("Applicant");
         applicantB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,8 +166,12 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        catogoryMenu.setBackground(new java.awt.Color(0, 0, 0));
+        catogoryMenu.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         catogoryMenu.setText("JCategory");
 
+        jobB.setBackground(new java.awt.Color(0, 0, 0));
+        jobB.setFont(new java.awt.Font("Times New Roman", 3, 12)); // NOI18N
         jobB.setText("Jobs");
         jobB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,6 +179,8 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        applicationB.setBackground(new java.awt.Color(0, 0, 0));
+        applicationB.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         applicationB.setText("Applications");
         applicationB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,6 +188,8 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        companyB.setBackground(new java.awt.Color(0, 0, 0));
+        companyB.setFont(new java.awt.Font("Times New Roman", 3, 14)); // NOI18N
         companyB.setText("Company");
         companyB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,42 +201,42 @@ public class MainForm extends javax.swing.JFrame {
         buttonPane.setLayout(buttonPaneLayout);
         buttonPaneLayout.setHorizontalGroup(
             buttonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonPaneLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(companyB)
-                .addGap(163, 163, 163)
-                .addComponent(catogoryMenu)
-                .addGap(158, 158, 158)
-                .addComponent(jobB)
-                .addGap(230, 230, 230))
             .addGroup(buttonPaneLayout.createSequentialGroup()
                 .addGap(101, 101, 101)
-                .addComponent(employerButton)
-                .addGap(140, 140, 140)
-                .addComponent(locationB)
-                .addGap(139, 139, 139)
-                .addComponent(applicantB)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+                .addComponent(employerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(223, 223, 223)
+                .addComponent(locationB, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 247, Short.MAX_VALUE)
                 .addComponent(applicationB)
-                .addGap(107, 107, 107))
+                .addGap(223, 223, 223)
+                .addComponent(catogoryMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(101, 101, 101))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, buttonPaneLayout.createSequentialGroup()
+                .addGap(253, 253, 253)
+                .addComponent(applicantB, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(companyB, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(247, 247, 247)
+                .addComponent(jobB, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(253, 253, 253))
         );
         buttonPaneLayout.setVerticalGroup(
             buttonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buttonPaneLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(buttonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(employerButton)
-                    .addComponent(locationB)
-                    .addComponent(applicantB)
-                    .addComponent(applicationB))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                    .addComponent(employerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(locationB, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(catogoryMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(applicationB, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
                 .addGroup(buttonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(catogoryMenu)
-                    .addComponent(companyB)
-                    .addComponent(jobB))
-                .addGap(31, 31, 31))
+                    .addComponent(applicantB, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jobB, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(companyB, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
-        buttonPane.setLayer(employerButton, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        buttonPane.setLayer(employerButton, javax.swing.JLayeredPane.PALETTE_LAYER);
         buttonPane.setLayer(locationB, javax.swing.JLayeredPane.DEFAULT_LAYER);
         buttonPane.setLayer(applicantB, javax.swing.JLayeredPane.DEFAULT_LAYER);
         buttonPane.setLayer(catogoryMenu, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -225,17 +252,23 @@ public class MainForm extends javax.swing.JFrame {
         );
         desktopPaneLayout.setVerticalGroup(
             desktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 386, Short.MAX_VALUE)
+            .addGap(0, 490, Short.MAX_VALUE)
         );
 
+        jMenuBar1.setFont(new java.awt.Font("Viner Hand ITC", 1, 14)); // NOI18N
+
         jMenu1.setText("File");
+        jMenu1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
+        jMenu2.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jMenuBar1.add(jMenu2);
 
         userMenu.setText("Users");
+        userMenu.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
 
+        employerMenu.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         employerMenu.setText("Employer's");
         employerMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,6 +277,7 @@ public class MainForm extends javax.swing.JFrame {
         });
         userMenu.add(employerMenu);
 
+        applicantMenu.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         applicantMenu.setText("Applicants");
         applicantMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,7 +288,8 @@ public class MainForm extends javax.swing.JFrame {
 
         jMenuBar1.add(userMenu);
 
-        productMenu.setText("Product");
+        productMenu.setText("Category");
+        productMenu.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
 
         categoryMenu.setText("Job Category");
 
@@ -266,20 +301,41 @@ public class MainForm extends javax.swing.JFrame {
         jMenuBar1.add(productMenu);
 
         companyMenu.setText("Companies");
+        companyMenu.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jMenuBar1.add(companyMenu);
 
         locationMenu.setText("Locations");
+        locationMenu.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
 
-        jMenuItem8.setText("jMenuItem8");
+        jMenuItem8.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jMenuItem8.setText("Location List");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         locationMenu.add(jMenuItem8);
 
         jMenuBar1.add(locationMenu);
 
         applicationMenu.setText("Applications");
+        applicationMenu.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+
+        jMenuItem12.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        jMenuItem12.setText("All Applications");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        applicationMenu.add(jMenuItem12);
+
         jMenuBar1.add(applicationMenu);
 
         admin.setText("Admin");
+        admin.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
 
+        userList.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         userList.setText("List of User");
         userList.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -304,18 +360,19 @@ public class MainForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(buttonPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(desktopPane)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     private void employerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employerButtonActionPerformed
         // TODO add your handling code here:
         EmployerForm ef = new EmployerForm();
         desktopPane.add(ef);
         ef.show();
+        
     }//GEN-LAST:event_employerButtonActionPerformed
 
     private void applicantMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_applicantMenuActionPerformed
@@ -368,6 +425,21 @@ public class MainForm extends javax.swing.JFrame {
         desktopPane.add(pf);
         pf.show();
     }//GEN-LAST:event_userListActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        LocationForm lf = new LocationForm();
+        desktopPane.add(lf);
+        lf.show();
+        
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        // TODO add your handling code here:
+        ApplicationDetailsForm adf = new ApplicationDetailsForm();
+        desktopPane.add(adf);
+        adf.show();
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -442,6 +514,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

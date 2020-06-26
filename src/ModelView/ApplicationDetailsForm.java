@@ -15,6 +15,7 @@ import DAL.JobRepository;
 import ModelGiu.ApplicantComboBoxModel;
 import ModelGiu.ApplicationDetailsTableModel;
 import ModelGiu.JobComboBoxModel;
+import java.awt.Color;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,6 +41,10 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
         loadComboBox();
         tabelaSelectedIndexChange();
         sort();
+        Color c = new Color(204 , 204 , 255);
+        panel.setBackground(c);
+        
+        
     }
     ApplicantRepository ar = new ApplicantRepository();
     ApplicantComboBoxModel acbm = new ApplicantComboBoxModel();
@@ -77,7 +82,7 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
     
      try{
             List<ApplicationDetails> lista = adr.findAll();
-            adtm.setPageSize(5);
+            //adtm.setPageSize(5);
             adtm.addList(lista);
             
             table3.setModel(adtm);
@@ -138,8 +143,7 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
         mistake = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         filterF = new javax.swing.JTextField();
-        upB = new javax.swing.JButton();
-        downB = new javax.swing.JButton();
+        filterCBM = new javax.swing.JComboBox();
 
         saveB.setText("ADD");
         saveB.addActionListener(new java.awt.event.ActionListener() {
@@ -222,17 +226,10 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
             }
         });
 
-        upB.setText("Previous");
-        upB.addActionListener(new java.awt.event.ActionListener() {
+        filterCBM.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Filter by Id", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        filterCBM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                upBActionPerformed(evt);
-            }
-        });
-
-        downB.setText("Next");
-        downB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                downBActionPerformed(evt);
+                filterCBMActionPerformed(evt);
             }
         });
 
@@ -246,6 +243,13 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
                         .addGap(25, 25, 25)
                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(deleteB)
+                            .addGroup(panelLayout.createSequentialGroup()
+                                .addGap(80, 80, 80)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(filterF, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(97, 97, 97)
+                                .addComponent(filterCBM, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelLayout.createSequentialGroup()
                                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(saveB)
@@ -266,17 +270,8 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
                                     .addComponent(mistake, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(panelLayout.createSequentialGroup()
                         .addGap(142, 142, 142)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelLayout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(filterF, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(190, 190, 190)
-                        .addComponent(upB)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(downB)))
-                .addContainerGap(198, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(510, Short.MAX_VALUE))
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,21 +294,20 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelLayout.createSequentialGroup()
                         .addComponent(deleteB)
-                        .addContainerGap(234, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 109, Short.MAX_VALUE)
                         .addComponent(mistake, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelLayout.createSequentialGroup()
                                 .addGap(36, 36, 36)
                                 .addComponent(jLabel4))
                             .addGroup(panelLayout.createSequentialGroup()
-                                .addGap(32, 32, 32)
+                                .addGap(33, 33, 33)
                                 .addGroup(panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(filterF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(upB)
-                                    .addComponent(downB))))
-                        .addGap(11, 11, 11)
+                                    .addComponent(filterCBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(13, 13, 13)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32))))
         );
@@ -326,9 +320,7 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 4, Short.MAX_VALUE))
+            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -382,6 +374,15 @@ public class ApplicationDetailsForm extends javax.swing.JInternalFrame {
         
         
     }
+     
+      public void filterCBM(String query){
+     TableRowSorter<ApplicationDetailsTableModel> tr;
+        tr = new  TableRowSorter<ApplicationDetailsTableModel>((ApplicationDetailsTableModel) table3.getModel());
+        table3.setRowSorter(tr);
+        if(query !="Filter by Id"){
+        tr.setRowFilter(RowFilter.regexFilter(query));
+        }
+    }
     
     private void deleteBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBActionPerformed
         // TODO add your handling code here:
@@ -430,35 +431,18 @@ mistake.setText(" ");         // TODO add your handling code here:
         // TODO add your handling code here:
     }//GEN-LAST:event_filterFActionPerformed
 
-    private void upBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upBActionPerformed
+    private void filterCBMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterCBMActionPerformed
         // TODO add your handling code here:
-          ApplicationDetailsTableModel model = (ApplicationDetailsTableModel) table3.getModel();
-        model.pageUp();
-         if (model.getPageOffset() == 0) {
-          upB.setEnabled(false);
-        }else{
-        downB.setEnabled(true);
-      }
-    }//GEN-LAST:event_upBActionPerformed
-
-    private void downBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downBActionPerformed
-        // TODO add your handling code here:
-        ApplicationDetailsTableModel model = (ApplicationDetailsTableModel) table3.getModel();
-        model.pageDown();
-           // If we hit the bottom of the data, disable the down button.
-        if (model.getPageOffset() == (model.getPageCount() - 1)) {
-          downB.setEnabled(false);
-        }else{
-        upB.setEnabled(true);
-      }
-    }//GEN-LAST:event_downBActionPerformed
-
-
+         String query = filterCBM.getSelectedItem().toString();
+        filterCBM(query);
+    }//GEN-LAST:event_filterCBMActionPerformed
+/*
+*/
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox applicantCBM;
     private javax.swing.JButton cancelB;
     private javax.swing.JButton deleteB;
-    private javax.swing.JButton downB;
+    private javax.swing.JComboBox filterCBM;
     private javax.swing.JTextField filterF;
     private javax.swing.JTextField idField;
     private javax.swing.JLabel jLabel1;
@@ -471,6 +455,5 @@ mistake.setText(" ");         // TODO add your handling code here:
     private javax.swing.JPanel panel;
     private javax.swing.JButton saveB;
     private javax.swing.JTable table3;
-    private javax.swing.JButton upB;
     // End of variables declaration//GEN-END:variables
 }

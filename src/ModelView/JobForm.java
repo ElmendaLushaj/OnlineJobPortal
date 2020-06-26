@@ -14,10 +14,12 @@ import DAL.CompanyRepository;
 import DAL.JobCategoryRepository;
 import DAL.JobRepository;
 import DAL.LocationRepository;
+import ModelGiu.ApplicantTableModel;
 import ModelGiu.CompanyComboBoxModel;
 import ModelGiu.JobCategoryComboBoxModel;
 import ModelGiu.JobTableModel;
 import ModelGiu.LoationComboBoxModel;
+import java.awt.Color;
 import java.util.List;
 import java.util.Locale.Category;
 import java.util.logging.Level;
@@ -39,11 +41,15 @@ public class JobForm extends javax.swing.JInternalFrame {
      * Creates new form JobForm
      */
     public JobForm() {
+        
         initComponents();
         loadTable();
         tabelaSelectedIndexChange();
         loadComboBox();
         sort();
+         Color c = new Color(204 , 204 , 255);
+        panel.setBackground(c);
+        
     }
     JobRepository jr = new JobRepository();
     JobTableModel jtm = new JobTableModel();
@@ -162,6 +168,7 @@ public class JobForm extends javax.swing.JInternalFrame {
         filterF = new javax.swing.JTextField();
         upB = new javax.swing.JButton();
         downB = new javax.swing.JButton();
+        filterCBM = new javax.swing.JComboBox();
 
         saveB.setText("Save");
         saveB.addActionListener(new java.awt.event.ActionListener() {
@@ -315,6 +322,13 @@ public class JobForm extends javax.swing.JInternalFrame {
             }
         });
 
+        filterCBM.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Filter by positions", "W", "M" }));
+        filterCBM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filterCBMActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelLayout = new javax.swing.GroupLayout(panel);
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
@@ -359,7 +373,9 @@ public class JobForm extends javax.swing.JInternalFrame {
                         .addComponent(upB)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(downB)
-                        .addGap(289, 289, 289)
+                        .addGap(151, 151, 151)
+                        .addComponent(filterCBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(82, 82, 82)
                         .addComponent(jLabel10)
                         .addGap(37, 37, 37)
                         .addComponent(filterF, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -374,11 +390,11 @@ public class JobForm extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(descriptionField, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(deleteB))
-                .addGap(1269, 1325, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(panelLayout.createSequentialGroup()
                 .addGap(486, 486, 486)
                 .addComponent(mistake, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 393, Short.MAX_VALUE))
             .addGroup(panelLayout.createSequentialGroup()
                 .addGap(185, 185, 185)
                 .addComponent(jLabel4)
@@ -433,12 +449,13 @@ public class JobForm extends javax.swing.JInternalFrame {
                     .addComponent(upB)
                     .addComponent(jLabel10)
                     .addComponent(filterF, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(downB))
+                    .addComponent(downB)
+                    .addComponent(filterCBM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(mistake, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -447,15 +464,13 @@ public class JobForm extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -510,6 +525,16 @@ private void filter(String query){
         
         
     }
+
+  private void filterCBM(String query){
+    TableRowSorter<JobTableModel> tr;
+        tr = new  TableRowSorter<JobTableModel>((JobTableModel) table.getModel());
+        
+        table.setRowSorter(tr);
+        if(query !="Filter by positions"){
+        tr.setRowFilter(RowFilter.regexFilter(query));
+        }
+     }
     
     public void clear(){
     // idField.setText("");
@@ -632,6 +657,12 @@ mistake.setText(" ");        // TODO add your handling code here:
         upB.setEnabled(true);
       }
     }//GEN-LAST:event_downBActionPerformed
+
+    private void filterCBMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filterCBMActionPerformed
+        // TODO add your handling code here:
+         String query = filterCBM.getSelectedItem().toString();
+        filterCBM(query);
+    }//GEN-LAST:event_filterCBMActionPerformed
  private void sort(){
      TableRowSorter<JobTableModel> tr;
         tr = new  TableRowSorter<JobTableModel>((JobTableModel) table.getModel());
@@ -648,6 +679,7 @@ mistake.setText(" ");        // TODO add your handling code here:
     private javax.swing.JButton deleteB;
     private javax.swing.JTextField descriptionField;
     private javax.swing.JButton downB;
+    private javax.swing.JComboBox filterCBM;
     private javax.swing.JTextField filterF;
     private javax.swing.JTextField idField;
     private javax.swing.JLabel jLabel1;

@@ -20,7 +20,7 @@ public class ApplicationDetailsTableModel extends AbstractTableModel{
      protected int pageSize;
     protected int pageOffset;
     
-       public int getPageOffset() {
+/*       public int getPageOffset() {
     return pageOffset;
   }
       public int getPageCount() {
@@ -38,7 +38,7 @@ public class ApplicationDetailsTableModel extends AbstractTableModel{
      * if (pageSize < oldPageSize) { fireTableRowsDeleted(pageSize,
      * oldPageSize - 1); } else { fireTableRowsInserted(oldPageSize,
      * pageSize - 1); }
-     */
+     
   }
   public void pageDown() {
     if (pageOffset < getPageCount() - 1) {
@@ -53,7 +53,7 @@ public class ApplicationDetailsTableModel extends AbstractTableModel{
       pageOffset--;
       fireTableDataChanged();
     }
-  }
+  }*/
     
     public ApplicationDetailsTableModel(){}
     
@@ -75,9 +75,14 @@ public class ApplicationDetailsTableModel extends AbstractTableModel{
         lista.remove(row);
         
     }
-     @Override
+    /* @Override
      public int getRowCount(){
      return Math.min(pageSize, lista.size());
+     }*/
+    
+      @Override
+     public int getRowCount(){
+     return  lista.size();
      }
      public ApplicationDetails getApplicationDetails(int i){
      return lista.get(i);

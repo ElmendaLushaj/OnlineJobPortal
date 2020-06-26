@@ -42,6 +42,8 @@ public class SignUpForm extends javax.swing.JFrame {
     
     public SignUpForm() {
         initComponents();
+        setLocationRelativeTo(null);
+        setSize(650 , 700);
        loadComboBox();
        openFileChooser = new JFileChooser();
        //openFileChooser.setFileFilter(new FileNameExtensionFilter("png" , "jpng"));
@@ -410,6 +412,7 @@ public class SignUpForm extends javax.swing.JFrame {
             //a. setGender(genderField.getText());
                String gender = genderCBM.getSelectedItem().toString();
          
+               
              a.setGender(gender);
             
             a.setAEmail(emailField.getText());
